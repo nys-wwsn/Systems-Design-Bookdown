@@ -5,31 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 6 System design for outbreak detection | Systems Design for Wastewater Surveillance: Information Guide and Training Resources</title>
-  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="description" content="This is a training guide for wastewater surveillance systems design." />
   <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 6 System design for outbreak detection | Systems Design for Wastewater Surveillance: Information Guide and Training Resources" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta property="og:description" content="This is a training guide for wastewater surveillance systems design." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 6 System design for outbreak detection | Systems Design for Wastewater Surveillance: Information Guide and Training Resources" />
   
-  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="twitter:description" content="This is a training guide for wastewater surveillance systems design." />
   
 
-<meta name="author" content="Dustin T. Hill, Shaz Damani, and David A. Larsen" />
+<meta name="author" content="Dustin T. Hill, Shaz Damani, David A. Larsen, and contributions from the New York State Wastewater Surveillance Program" />
 
 
-<meta name="date" content="2025-04-22" />
+<meta name="date" content="2025-05-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -143,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Systeks Design for Wastewater Surveillance</a></li>
+<li class-"toc-logo"><a href="./"><img src=images/logo_1.jpg></a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
@@ -202,7 +196,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="adding-other-spatial-data-to-wbe.html"><a href="adding-other-spatial-data-to-wbe.html#training-review-2"><i class="fa fa-check"></i><b>5.2</b> Training review</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html"><i class="fa fa-check"></i><b>6</b> System design for outbreak detection</a></li>
+<li class="chapter" data-level="6" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html"><i class="fa fa-check"></i><b>6</b> System design for outbreak detection</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html#where-does-wastewater-surveillance-fit-into-the-surveillance-landscape"><i class="fa fa-check"></i><b>6.1</b> Where does wastewater surveillance fit into the surveillance landscape?</a></li>
+<li class="chapter" data-level="6.2" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html#estimating-sensitivity-of-detection"><i class="fa fa-check"></i><b>6.2</b> Estimating sensitivity of detection</a></li>
+<li class="chapter" data-level="6.3" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html#equity-of-outbreak-detection"><i class="fa fa-check"></i><b>6.3</b> Equity of outbreak detection</a></li>
+<li class="chapter" data-level="6.4" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html#example-polio-in-nys"><i class="fa fa-check"></i><b>6.4</b> Example: Polio in NYS</a></li>
+<li class="chapter" data-level="6.5" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html#considerations-for-designing-wastewater-surveillance-systems-for-outbreak-detection"><i class="fa fa-check"></i><b>6.5</b> Considerations for designing wastewater surveillance systems for outbreak detection</a></li>
+<li class="chapter" data-level="6.6" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html#conclusion-and-training-review"><i class="fa fa-check"></i><b>6.6</b> Conclusion and training review</a></li>
+<li class="chapter" data-level="6.7" data-path="system-design-for-outbreak-detection.html"><a href="system-design-for-outbreak-detection.html#references"><i class="fa fa-check"></i><b>6.7</b> References</a></li>
+</ul></li>
 <li class="chapter" data-level="7" data-path="resources-and-links.html"><a href="resources-and-links.html"><i class="fa fa-check"></i><b>7</b> Resources and links</a>
 <ul>
 <li class="chapter" data-level="7.1" data-path="resources-and-links.html"><a href="resources-and-links.html#training-videos"><i class="fa fa-check"></i><b>7.1</b> Training Videos</a></li>
@@ -231,8 +234,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="system-design-for-outbreak-detection" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> System design for outbreak detection<a href="system-design-for-outbreak-detection.html#system-design-for-outbreak-detection" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Understanding outbreak detection in wastewater surveillance</p>
+<p>In this training, you will learn the key principles of outbreak detection in epidemiology surveillance systems. Examples will be provided to explore the principles. At the end, key concepts will be reviewed.</p>
+<div id="where-does-wastewater-surveillance-fit-into-the-surveillance-landscape" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Where does wastewater surveillance fit into the surveillance landscape?<a href="system-design-for-outbreak-detection.html#where-does-wastewater-surveillance-fit-into-the-surveillance-landscape" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Wastewater surveillance is monitoring community level samples from points that include influent from different sources like homes, businesses, and hospitals. Wastewater surveillance is ideal for identifying if a disease is present and if there is an increase in cases (Figure 1).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig51"></span>
+<img src="images/Figure%201.png" alt="The domains of disease surveillance. Wastewater surveillance fits into identifying individuals infected and communities (Cameron et al. 2020)." width="2000" />
+<p class="caption">
+Figure 6.1: The domains of disease surveillance. Wastewater surveillance fits into identifying individuals infected and communities (Cameron et al. 2020).
+</p>
+</div>
+<p>Probability of detecting a disease is dependent on the sensitivity of detection for that specific disease (Equation 6.1) and also on the coverage of the population by the surveillance system (Equation 6.2) (Cameron et al. 2020).</p>
+<p><a href="system-design-for-outbreak-detection.html#eq:ncrep">(6.1)</a></p>
+<p><span class="math display" id="eq:ncrep">\[\begin{equation}
+\ Probability(at \ least \ one \ detected) = 1 – (1 – Sensitivity \ of \ detection)^n
+    \tag{6.1}
 
+\end{equation}\]</span></p>
+<p><a href="system-design-for-outbreak-detection.html#eq:ncrep">(6.1)</a></p>
+<p><span class="math display" id="eq:ncrep">\[\begin{equation}
+\ EDSSe = population \ coverage * temporal \ coverage * Sensitivity \ of \ detection
+    \tag{6.1}
+
+\end{equation}\]</span></p>
+<p>It is important to know that wastewater surveillance has limitations and will not detect the spillover event (e.g., the introduction of a new pathogen from one population to another). As an outbreak spreads, the sensitivity of detecting the outbreak increases exponentially as infection counts increase. Wastewater surveillance has a high population coverage within treatment plant catchment areas because urban areas are more likely to be served by public sewer systems. Frequent wastewater surveillance (e.g., once per week) has high temporal coverage. Also, remember, sensitivity will always be pathogen specific.</p>
+</div>
+<div id="estimating-sensitivity-of-detection" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Estimating sensitivity of detection<a href="system-design-for-outbreak-detection.html#estimating-sensitivity-of-detection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are two ways to estimate the sensitivity of detection of a pathogen in wastewater. One is comparing detections to estimates of prevalence (See Larsen et al. for more details).
+The second is a dynamic shedding, decay, and transport model. This is dependent on being able to measure or estimate the shedding of a pathogen from an infected person and is hard to measure for rare pathogens (e.g., measles or polio).</p>
+</div>
+<div id="equity-of-outbreak-detection" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Equity of outbreak detection<a href="system-design-for-outbreak-detection.html#equity-of-outbreak-detection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Urban communities are more likely to be connected to sewer than rural communities. While this means that the urban vulnerable populations (e.g., poor, elderly) are covered by the surveillance system, the population density of the community means that the wastewater flow is highly diluted. The more people that contribute to a sewer system, the higher the flow, and the more dilution. This reduces the sensitivity of detection at the treatment plan. This means that urban communities may experience higher infection counts before an outbreak is detected in wastewater.</p>
+<p>On the other hand, rural communities with a public sewer system are more likely to detect an outbreak that is small in size and in the early stages because the population is smaller and therefore the ability to detect the pathogen is greater. There is less dilution in the smaller systems because fewer households and businesses contribute to the smaller treatment plant.</p>
+</div>
+<div id="example-polio-in-nys" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Example: Polio in NYS<a href="system-design-for-outbreak-detection.html#example-polio-in-nys" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Polio was identified in wastewater in New York State after diagnosis of a paralytic case in 2022. Continuous monitoring for polio in wastewater after this diagnosis identified polio positives in several community wastewater samples in the nearby region. You can learn more about the polio outbreak in New York <a href="https://www.health.ny.gov/diseases/communicable/polio/wastewater.htm">here</a></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig52"></span>
+<img src="images/Figure%202.png" alt="Polio positive detection rates for NYS during the 2022 polio outbreak (Larsen et al. 2024)" width="1332" />
+<p class="caption">
+Figure 6.2: Polio positive detection rates for NYS during the 2022 polio outbreak (Larsen et al. 2024)
+</p>
+</div>
+<p>Using the detection of polio in wastewater and methods developed by Berchenko et al. (2017), estimates for the sensitivity to detect a single poliovirus infection were produced for each wastewater sampling site in New York (Figure 3A).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:fig53"></span>
+<img src="images/Figure%203.png" alt="A) Sensitivity to detect a single poliovirus infection at one treatment plant. Sensitivity is highest in smaller treatment plants. B) confidence in freedom from poliovirus transmission after three consecutive non-detections. C) the 95% confidence in the upper limit of infections. Even if a result is negative, we are confident that the total number of infections is less than 25 for most WWTPs." width="1837" />
+<p class="caption">
+Figure 6.3: A) Sensitivity to detect a single poliovirus infection at one treatment plant. Sensitivity is highest in smaller treatment plants. B) confidence in freedom from poliovirus transmission after three consecutive non-detections. C) the 95% confidence in the upper limit of infections. Even if a result is negative, we are confident that the total number of infections is less than 25 for most WWTPs.
+</p>
+</div>
+</div>
+<div id="considerations-for-designing-wastewater-surveillance-systems-for-outbreak-detection" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Considerations for designing wastewater surveillance systems for outbreak detection<a href="system-design-for-outbreak-detection.html#considerations-for-designing-wastewater-surveillance-systems-for-outbreak-detection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When designing your surveillance system, you need to consider many different components including:</p>
+<ul>
+<li><p>Detection of an outbreak is determined by the stage of the outbreak, the size of the treatment plant, and the shedding characteristics of the pathogen</p></li>
+<li><p>Outbreaks might be first detected in the wastewater of smaller treatment plants.</p></li>
+<li><p>Non-detections in larger treatment plants does not mean wastewater surveillance is not beneficial</p></li>
+<li><p>Large treatment plants benefit from upstream sampling plans and readiness</p></li>
+</ul>
+</div>
+<div id="conclusion-and-training-review" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> Conclusion and training review<a href="system-design-for-outbreak-detection.html#conclusion-and-training-review" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Wastewater surveillance is a powerful tool for public health. It can help is understand emerging pathogens and monitor endemic diseases. There are limitations to all surveillance systems, including wastewater surveillance. Based on our knowledge today, one limit is the sensitivity to detect a pathogen in wastewater. This will depend on the size of the outbreak, its shedding profile, and the sampling location characteristics. Wastewater surveillance is best used to monitor the growth or change in an outbreak and by including small treatment plants close to urban areas as “sentinel surveillance sites”, there is potential to identify an outbreak before it becomes a major public health problem.</p>
+</div>
+<div id="references" class="section level2 hasAnchor" number="6.7">
+<h2><span class="header-section-number">6.7</span> References<a href="system-design-for-outbreak-detection.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Berchenko Y, Manor Y, Freedman LS, Kaliner E, Grotto I, Mendelson E, et al. <a href="https://doi.org/10.1126/scitranslmed.aaf6786">Estimation of polio infection prevalence from environmental surveillance data</a>. Sci Transl Med. 2017; 9. <a href="https://doi.org/10.1126/scitranslmed.aaf6786" class="uri">https://doi.org/10.1126/scitranslmed.aaf6786</a> PMID: 28356510</p>
+<p>Cameron AR, Meyer A, Faverjon C, Mackenzie C. <a href="https://doi.org/10.1111/tbed.13598">Quantification of the sensitivity of early detection surveillance</a>. Transboundary and Emerging Diseases. 2020 Nov;67(6):2532-43.</p>
+<p>Larsen DA, Hill D, Zhu Y, Alazawi M, Chatila D, Dunham C, Faruolo C, Ferro B, Godinez A, Hanson B, Insaf T. <a href="https://doi.org/10.1371/journal.pgph.0002381">Non-detection of emerging and re-emerging pathogens in wastewater surveillance to confirm absence of transmission risk: A case study of polio in New York</a>. PLOS global public health. 2024 Dec 31;4(12):e0002381.</p>
+
+</div>
 </div>
             </section>
 
@@ -294,6 +368,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
