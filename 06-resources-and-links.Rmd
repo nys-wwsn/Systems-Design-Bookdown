@@ -1,0 +1,25 @@
+# Resources and links
+
+## Training Videos
+
+The videos will be available on our public YouTube channel. They are coming soon!
+
+## Data
+
+All the data used in these tutorials are publicly available at the following links:
+
+* [Systems Design GitHub Page](https://github.com/nys-wwsn/Systems-Design-Bookdown). Click on the **data** folder.
+
+* [NYS sewershed data (ArcGIS online download)](https://www.arcgis.com/home/item.html?id=e795007660ae4a1fae5f86b40d065b3a). Access and download NYS sewershed data to see how data are recorded. 
+
+* [NYS sewershed data](https://github.com/nys-wwsn/ny-sewer-spatial-data) (GitHub data download). Access and download NYS sewershed data directly into your R session. 
+
+* [National parcel data viewer](https://www.arcgis.com/apps/mapviewer/index.html?url=https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer&source=sd) / [data access portal](https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer). This is a data portal that lets you explore each state in the US and whether they have tax parcel data. Some links bring you to county or state websites and from there you can view and download the data. 
+
+## Other Resources
+
+* [NYS sewershed data viewer](https://dthill196.github.io/NY-Sewershed-Populations/). Visually inspect NYS sewersheds and the population served by each. The page includes example code for downloading and adding population data to sewershed shapefiles in the program R.  
+
+* [Using the Editor toolbar in ArcGIS](https://desktop.arcgis.com/en/arcmap/latest/manage-data/editing-fundamentals/adding-the-editor-toolbar.htm). ArcGIS can be an excellent way to digitally edit spatial data. 
+
+* [R spatial tools](https://r-spatial.org/). R is an open-source program, and most mapping projects and analyses can be completed using the software. 

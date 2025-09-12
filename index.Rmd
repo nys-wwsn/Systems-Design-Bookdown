@@ -1,0 +1,55 @@
+--- 
+title: "Systems Design for Wastewater Surveillance: Information Guide and Training Resources"
+author: "Dustin T. Hill, Shaz Damani, David A. Larsen, and contributions from the New York State Wastewater Surveillance Program"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is a training guide for wastewater surveillance systems design.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+cover-image: images/logo2.png
+---
+
+# Introduction
+
+<img src="images/logo11.jpg" style="position:absolute;top:50px;height:300px;align:center;" /> 
+
+**Authors:** *Dustin T. Hill, Shaz Damani, and David A. Larsen with contributions from the New York State Wastewater Surveillance Network.*
+
+Welcome to this comprehensive guide designed to enhance and strengthen your wastewater surveillance activities. This document serves as a valuable resource to complement the monthly workshops hosted by the New York Center of Excellence (NY CoE) during our regional calls. Within these pages, you will find essential information, resources, and practical tips to support your efforts in wastewater monitoring. 
+
+We encourage you to refer to this guide as you embark on or continue your surveillance initiatives. Should you encounter any difficulties accessing the provided links, require additional one-on-one assistance, or have general inquiries, please do not hesitate to reach out to us. We are here to support you in successfully implementing and expanding your wastewater surveillance strategies. 
+
+This guide will focus on Systems Design for wastewater surveillance and cover the following topics:
+
+**Part 1: How New York State mapped their sewersheds**
+
+In Part 1, you will learn about how NYS mapped their sewersheds. The methods can be applied to other jurisdictions looking to produce maps of sewershed boundaries to aid wastewater surveillance for epidemiology. 
+
+**Part 2: Maps and spatial data for communities connected to public sewer**
+
+In Part 2, we will review existing maps for community sewer systems and how to make them for areas that might be missing them. While there is a plethora of digital spatial data on many topics, there is not yet a comprehensive national database for sewers in the United States (US). Using primarily public records, we show how to take an initial inventory of municipal WWTPs as a starting point for mapping a jurisdiction's sewer systems. 
+
+**Part 3: Adding Census Data to Wastewater-Based Epidemiology**
+
+Part 3, we explore how to incorporate United States Census (US Census) data, which can add population demographic variables, to WBE data. I will discuss how to integrate spatial census data to spatial WBE data.
+
+**Part 4: Adding other spatial data to WBE**
+
+In Part 4, we explore how to add other spatial data to WBE projects including zip codes and point data.
+
+**Part 5: System design for outbreak detection**
+
+In this last part of our Systems Design review, we share ways to understand an outbreak using wastewater surveillance data. Examples for some pathogens are provided as case studies.
+
+This info guide will also include a comprehensive list of videos, links to data, and other resources in the [Resources and Links section](#07-resources-and-links).
+
+## Contact information
+
+New York State Center of Excellence Website: [https://nywastewatcher.io/nwsscoe](https://nywastewatcher.io/nwsscoe).
+
+General concerns email: **WasteWaterNetwork@health.ny.gov**. 

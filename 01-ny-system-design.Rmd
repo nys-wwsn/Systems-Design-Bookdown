@@ -1,0 +1,46 @@
+# How New York State mapped their sewersheds 
+
+## Background
+
+In 2020, as part of the emergency response to the COVID-19 pandemic, a pilot wastewater surveillance project was initiated by NYS Department of Health (NYS DOH) and Syracuse University. As part of this pilot, maps were collected for participating wastewater treatment plants (WWTPs). These maps were the initial database of NYS sewersheds and the process used to create them formed the template for mapping all of the state’s sewersheds for each wastewater treatment plant (\@ref(fig:fig1)).
+
+```{r, fig1, fig.asp = 0.7, fig.width = 6, fig.align = 'center', fig.cap="Sampling Sites in New York State (2024)", echo = FALSE, eval = TRUE}
+
+knitr::include_graphics("Images/Participating_staticmap_2022_v2.png") 
+
+```
+
+In 2021, as part of the scale-up of wastewater surveillance in New York, NYS DOH funded a project to map all of the sewersheds in the state. Using contact information for the state’s WWTP operators, a survey was conducted to assess what data already existed for sewershed maps. Geospatial information systems (GIS) digital data were collected from sites that had mapped their systems. In addition, copies of physical maps, photos of maps, address lists for properties connected to sewers, tax rolls, and state digitized parcel records were collected to aid in the mapping effort. All of New York's Sewersheds were mapped regardless of whether the site was selected to participate in the ongoing surveillance projects (\@ref(fig:fig2))
+
+```{r fig2, fig.asp = 0.7, fig.width = 8, fig.align = 'center', fig.cap="New York State Municipal Sewersheds", echo = FALSE, eval = TRUE}
+
+knitr::include_graphics("Images/Map-stamen3.png") 
+
+
+```
+
+In this section, you will learn about how NYS mapped their sewersheds and the open-source methods that were used. This overview will be referenced in future sections and the methods can be applied to other jurisdictions looking to produce maps of sewershed boundaries to aid wastewater surveillance for epidemiology. 
+
+## Goals for this section 
+
+1. Learn about the process that NYS used to map sewersheds. 
+
+2. Identify methods used to address challenges in mapping and producing “best” estimates for sewershed boundaries. 
+
+3. Learn how NYS is using sewershed boundaries to enhance the utility of wastewater epidemiology. 
+
+## Resources
+
+* Video powerpoint for how NY created sewersheds.
+
+* Hill, D, Larsen, DA. 2023. [Using geographic information systems to link population estimates to wastewater surveillance data in New York State, USA.](https://doi.org/10.1371/journal.pgph.0001062) PLOS Global Public Health. The paper explains the process for mapping all of NYS’s sewersheds including data collection, processing, and estimating population estimates for each sewershed. 
+
+* [NYS sewershed data (ArcGIS online download)](https://www.arcgis.com/home/item.html?id=e795007660ae4a1fae5f86b40d065b3a). Access and download NYS sewershed data to see how data are recorded. 
+
+* [NYS sewershed data](https://github.com/nys-wwsn/ny-sewer-spatial-data) (GitHub data download). Access and download NYS sewershed data directly into your R session. 
+
+* [NYS sewershed data viewer](https://dthill196.github.io/NY-Sewershed-Populations/). Visually inspect NYS sewersheds and the population served by each. The page includes example code for downloading and adding population data to sewershed shapefiles in the program R.  
+
+* [Using the Editor toolbar in ArcGIS](https://desktop.arcgis.com/en/arcmap/latest/manage-data/editing-fundamentals/adding-the-editor-toolbar.htm). ArcGIS can be an excellent way to digitally edit spatial data. 
+
+* [R spatial tools](https://r-spatial.org/). R is an open-source program, and most mapping projects and analyses can be completed using the software. 

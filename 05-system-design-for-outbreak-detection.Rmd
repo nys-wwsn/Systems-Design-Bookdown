@@ -1,0 +1,84 @@
+# System design for outbreak detection
+
+In this training, you will learn the key principles of outbreak detection in epidemiology surveillance systems. Examples will be provided to explore the principles. At the end, key concepts will be reviewed.
+
+## Where does wastewater surveillance fit into the surveillance landscape?
+
+Wastewater surveillance is monitoring community level samples from points that include influent from different sources like homes,  businesses, and hospitals. Wastewater surveillance is ideal for identifying if a disease is present and if there is an increase in cases (Figure 1).
+
+```{r fig51, fig.cap="The domains of disease surveillance. Wastewater surveillance fits into identifying individuals infected and communities (Cameron et al. 2020).", fig.pos='H', fig.align='center',echo = FALSE}
+knitr::include_graphics("Images/Figure 1.png")
+```
+
+Probability of detecting a disease is dependent on the sensitivity of detection for that specific disease (Equation 6.1) and also on the coverage of the population by the surveillance system (Equation 6.2) (Cameron et al. 2020).
+
+\@ref(eq:ncrep)
+
+\begin{equation}
+\ Probability(at \ least \ one \ detected) = 1 – (1 – Sensitivity \ of \ detection)^n
+    (\#eq:ncrep)
+
+\end{equation}
+
+\@ref(eq:ncrep)
+
+\begin{equation}
+\ EDSSe = population \ coverage * temporal \ coverage * Sensitivity \ of \ detection
+    (\#eq:ncrep)
+
+\end{equation}
+
+It is important to know that wastewater surveillance has limitations and will not detect the spillover event (e.g., the introduction of a new pathogen from one population to another). As an outbreak spreads, the sensitivity of detecting the outbreak increases exponentially as infection counts increase. Wastewater surveillance has a high population coverage within treatment plant catchment areas because urban areas are more likely to be served by public sewer systems. Frequent wastewater surveillance (e.g., once per week) has high temporal coverage. Also, remember, sensitivity will always be pathogen specific. 
+
+## Estimating sensitivity of detection
+
+There are two ways to estimate the sensitivity of detection of a pathogen in wastewater. One is comparing detections to estimates of prevalence (See Larsen et al. for more details).
+The second is a dynamic shedding, decay, and transport model. This is dependent on being able to measure or estimate the shedding of a pathogen from an infected person and is hard to measure for rare pathogens (e.g., measles or polio).
+
+## Equity of outbreak detection
+
+Urban communities are more likely to be connected to sewer than rural communities. While this means that the urban vulnerable populations (e.g., poor, elderly) are covered by the surveillance system, the population density of the community means that the wastewater flow is highly diluted. The more people that contribute to a sewer system, the higher the flow, and the more dilution. This reduces the sensitivity of detection at the treatment plan. This means that urban communities may experience higher infection counts before an outbreak is detected in wastewater.
+
+On the other hand, rural communities with a public sewer system are more likely to detect an outbreak that is small in size and in the early stages because the population is smaller and therefore the ability to detect the pathogen is greater. There is less dilution in the smaller systems because fewer households and businesses contribute to the smaller treatment plant. 
+
+## Example: Polio outbreak in NYS
+
+Polio was identified in wastewater in New York State after diagnosis of a paralytic case in 2022 ([Link-Gelles et al. 2022](https://www.cdc.gov/mmwr/volumes/71/wr/mm7133e2.htm?s_cid%3Dmm7133e2_w)). Continuous monitoring for polio in wastewater after this diagnosis identified polio positives in several community wastewater samples in the nearby region ([Ryerson et al. 2022](https://www.cdc.gov/mmwr/volumes/71/wr/mm7144e2.htm)). You can learn more about the polio outbreak in New York [here](https://www.health.ny.gov/diseases/communicable/polio/wastewater.htm). 
+
+```{r fig52, fig.cap="Polio positive detection rates for NYS during the 2022 polio outbreak (Larsen et al. 2024)", fig.pos='H', fig.align='center',echo = FALSE}
+knitr::include_graphics("Images/Figure 2.png")
+```
+
+Using the detection of polio in wastewater and methods developed by Berchenko et al. (2017), estimates for the sensitivity to detect a single poliovirus infection were produced for each wastewater sampling site in New York (Figure 3A).
+
+```{r fig53, fig.cap="A) Sensitivity to detect a single poliovirus infection at one treatment plant. Sensitivity is highest in smaller treatment plants. B) confidence in freedom from poliovirus transmission after three consecutive non-detections. C) the 95% confidence in the upper limit of infections. Even if a result is negative, we are confident that the total number of infections is less than 25 for most WWTPs.", fig.pos='H', fig.align='center',echo = FALSE}
+knitr::include_graphics("Images/Figure 3.png")
+```
+
+## Considerations for designing wastewater surveillance systems for outbreak detection
+
+When designing your surveillance system, you need to consider many different components including:
+
+* Detection of an outbreak is determined by the stage of the outbreak, the size of the treatment plant, and the shedding characteristics of the pathogen
+
+* Outbreaks might be first detected in the wastewater of smaller treatment plants. 
+
+* Non-detections in larger treatment plants does not mean wastewater surveillance is not beneficial
+
+* Large treatment plants benefit from upstream sampling plans and readiness
+
+## Conclusion and training review
+
+Wastewater surveillance is a powerful tool for public health. It can help is understand emerging pathogens and monitor endemic diseases. There are limitations to all surveillance systems, including wastewater surveillance. Based on our knowledge today, one limit is the sensitivity to detect a pathogen in wastewater. This will depend on the size of the outbreak, its shedding profile, and the sampling location characteristics. Wastewater surveillance is best used to monitor the growth or change in an outbreak and by including small treatment plants close to urban areas as “sentinel surveillance sites”, there is potential to identify an outbreak before it becomes a major public health problem. 
+
+## References
+
+Berchenko Y, Manor Y, Freedman LS, Kaliner E, Grotto I, Mendelson E, et al. [Estimation of polio infection prevalence from environmental surveillance data](https://doi.org/10.1126/scitranslmed.aaf6786). Sci Transl Med. 2017; 9. https://doi.org/10.1126/scitranslmed.aaf6786 PMID: 28356510
+
+Cameron AR, Meyer A, Faverjon C, Mackenzie C. [Quantification of the sensitivity of early detection surveillance](https://doi.org/10.1111/tbed.13598). Transboundary and Emerging Diseases. 2020 Nov;67(6):2532-43.
+
+Larsen DA, Hill D, Zhu Y, Alazawi M, Chatila D, Dunham C, Faruolo C, Ferro B, Godinez A, Hanson B, Insaf T. [Non-detection of emerging and re-emerging pathogens in wastewater surveillance to confirm absence of transmission risk: A case study of polio in New York](https://doi.org/10.1371/journal.pgph.0002381). PLOS global public health. 2024 Dec 31;4(12):e0002381.
+
+Link-Gelles R, Lutterloh E, Schnabel Ruppert P, et al. [Public Health Response to a Case of Paralytic Poliomyelitis in an Unvaccinated Person and Detection of Poliovirus in Wastewater — New York, June–August 2022](https://www.cdc.gov/mmwr/volumes/71/wr/mm7133e2.htm?s_cid%3Dmm7133e2_w). MMWR Morb Mortal Wkly Rep 2022;71:1065-1068. DOI: http://dx.doi.org/10.15585/mmwr.mm7133e2
+
+Ryerson AB, Lang D, Alazawi MA, et al. [Wastewater Testing and Detection of Poliovirus Type 2 Genetically Linked to Virus Isolated from a Paralytic Polio Case — New York, March 9–October 11, 2022.](https://www.cdc.gov/mmwr/volumes/71/wr/mm7144e2.htm) MMWR Morb Mortal Wkly Rep 2022;71:1418–1424. DOI: http://dx.doi.org/10.15585/mmwr.mm7144e2
