@@ -2,7 +2,11 @@
 
 ## Training Videos
 
-The videos will be available on our public YouTube channel. They are coming soon!
+The videos are available on our public YouTube channel. Here is a link to our [video library](https://www.youtube.com/@NYSWastewaterSurveillance/featured).
+
+* [Training Video 1: How to Map Sewersheds](https://www.youtube.com/watch?v=XU9Ux8cMIJk)
+
+* [Training Video 2: Aligning Census Data for WBE](https://www.youtube.com/watch?v=b5r3dtrzZNc)
 
 ## Data
 
