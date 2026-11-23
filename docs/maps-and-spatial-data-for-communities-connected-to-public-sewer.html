@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Maps and spatial data for communities connected to public sewer | Systems Design for Wastewater Surveillance: Information Guide and Training Resources</title>
   <meta name="description" content="This is a training guide for wastewater surveillance systems design." />
-  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.48 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Maps and spatial data for communities connected to public sewer | Systems Design for Wastewater Surveillance: Information Guide and Training Resources" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Dustin T. Hill, Shaz Damani, David A. Larsen, and contributions from the New York State Wastewater Surveillance Program" />
 
 
-<meta name="date" content="2025-05-12" />
+<meta name="date" content="2026-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,7 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -308,250 +309,250 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="step-1---install-and-load-the-necessary-r-packages" class="section level3 hasAnchor" number="3.4.1">
 <h3><span class="header-section-number">3.4.1</span> Step 1 - Install and load the necessary R packages<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#step-1---install-and-load-the-necessary-r-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Install packages to your computer.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gridExtra&quot;</span>)</span>
-<span id="cb1-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;nngeo&quot;</span>)</span>
-<span id="cb1-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</span>
-<span id="cb1-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
-<span id="cb1-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
-<span id="cb1-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tigris&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gridExtra&quot;</span>)</span>
+<span id="cb1-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;nngeo&quot;</span>)</span>
+<span id="cb1-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;sf&quot;</span>)</span>
+<span id="cb1-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span>
+<span id="cb1-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-5" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)</span>
+<span id="cb1-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb1-6" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tigris&quot;</span>)</span></code></pre></div>
 <p>Load packages into your current R session.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
-<span id="cb2-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nngeo)</span>
-<span id="cb2-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb2-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tigris)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-1" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb2-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-2" tabindex="-1"></a><span class="fu">library</span>(nngeo)</span>
+<span id="cb2-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-3" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb2-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-4" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-5" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb2-6" tabindex="-1"></a><span class="fu">library</span>(tigris)</span></code></pre></div>
 </div>
 <div id="step-2---load-the-data-into-your-r-session" class="section level3 hasAnchor" number="3.4.2">
 <h3><span class="header-section-number">3.4.2</span> Step 2 - Load the data into your R session<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#step-2---load-the-data-into-your-r-session" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Onondaga county tax parcels</span></span>
-<span id="cb3-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-2" aria-hidden="true" tabindex="-1"></a>onondaga_parcels <span class="ot">&lt;-</span> </span>
-<span id="cb3-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_read</span>(<span class="st">&quot;E:/Data/ny_parcels/onondaga_2020_Tax_Parcels_SHP_2106/onondaga_2020_Tax_Parcels_SHP_2106.shp&quot;</span>)</span>
-<span id="cb3-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># NY WWTPS</span></span>
-<span id="cb3-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-6" aria-hidden="true" tabindex="-1"></a>ny_wwtps <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Wastewater_Treatment_Plants_20250121.csv&quot;</span>)</span>
-<span id="cb3-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># NY county boundaries - for assistance with mapping</span></span>
-<span id="cb3-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-9" aria-hidden="true" tabindex="-1"></a>ny_counties <span class="ot">&lt;-</span> </span>
-<span id="cb3-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_read</span>(<span class="st">&quot;E:/Dropbox/CEMI/Wastewater/Data/NYS_Civil_Boundaries.shp/Counties_Shoreline.shp&quot;</span>)</span>
-<span id="cb3-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter for Onondaga county</span></span>
-<span id="cb3-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-13" aria-hidden="true" tabindex="-1"></a>onondaga_border <span class="ot">&lt;-</span> ny_counties <span class="sc">%&gt;%</span></span>
-<span id="cb3-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(NAME <span class="sc">==</span> <span class="st">&quot;Onondaga&quot;</span>)</span>
-<span id="cb3-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># nys town, city, village boundaries</span></span>
-<span id="cb3-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-17" aria-hidden="true" tabindex="-1"></a>towns <span class="ot">&lt;-</span> </span>
-<span id="cb3-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_read</span>(<span class="st">&quot;E:/Dropbox/CEMI/Wastewater/Data/NYS_Civil_Boundaries.shp/Cities_Towns.shp&quot;</span>)</span>
-<span id="cb3-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Onondaga towns</span></span>
-<span id="cb3-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-21" aria-hidden="true" tabindex="-1"></a>onondaga_towns <span class="ot">&lt;-</span> towns <span class="sc">%&gt;%</span></span>
-<span id="cb3-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(COUNTY <span class="sc">==</span> <span class="st">&quot;Onondaga&quot;</span>)</span>
-<span id="cb3-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># villages</span></span>
-<span id="cb3-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-25" aria-hidden="true" tabindex="-1"></a>villages <span class="ot">&lt;-</span> </span>
-<span id="cb3-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_read</span>(<span class="st">&quot;E:/Dropbox/CEMI/Wastewater/Data/NYS_Civil_Boundaries.shp/Villages.shp&quot;</span>)</span>
-<span id="cb3-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Onondaga villages</span></span>
-<span id="cb3-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-29" aria-hidden="true" tabindex="-1"></a>onondaga_villages <span class="ot">&lt;-</span> villages <span class="sc">%&gt;%</span></span>
-<span id="cb3-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(COUNTY <span class="sc">==</span> <span class="st">&quot;Onondaga&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-1" tabindex="-1"></a><span class="co"># Onondaga county tax parcels</span></span>
+<span id="cb3-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-2" tabindex="-1"></a>onondaga_parcels <span class="ot">&lt;-</span> </span>
+<span id="cb3-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-3" tabindex="-1"></a>  <span class="fu">st_read</span>(<span class="st">&quot;data/onondaga_2020_Tax_Parcels_SHP_2106/onondaga_2020_Tax_Parcels_SHP_2106.shp&quot;</span>)</span>
+<span id="cb3-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-5" tabindex="-1"></a><span class="co"># NY WWTPS</span></span>
+<span id="cb3-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-6" tabindex="-1"></a>ny_wwtps <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Wastewater_Treatment_Plants_20250121.csv&quot;</span>)</span>
+<span id="cb3-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-8" tabindex="-1"></a><span class="co"># NY county boundaries - for assistance with mapping</span></span>
+<span id="cb3-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-9" tabindex="-1"></a>ny_counties <span class="ot">&lt;-</span> </span>
+<span id="cb3-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-10" tabindex="-1"></a>  <span class="fu">st_read</span>(<span class="st">&quot;data/Counties_Shoreline/Counties_Shoreline.shp&quot;</span>)</span>
+<span id="cb3-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-11" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-12" tabindex="-1"></a><span class="co"># Filter for Onondaga county</span></span>
+<span id="cb3-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-13" tabindex="-1"></a>onondaga_border <span class="ot">&lt;-</span> ny_counties <span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-14" tabindex="-1"></a>  <span class="fu">filter</span>(NAME <span class="sc">==</span> <span class="st">&quot;Onondaga&quot;</span>)</span>
+<span id="cb3-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-15" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-16" tabindex="-1"></a><span class="co"># nys town, city, village boundaries</span></span>
+<span id="cb3-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-17" tabindex="-1"></a>towns <span class="ot">&lt;-</span> </span>
+<span id="cb3-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-18" tabindex="-1"></a>  <span class="fu">st_read</span>(<span class="st">&quot;data/NY Town Boundaries/Cities_Towns.shp&quot;</span>)</span>
+<span id="cb3-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-19" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-20" tabindex="-1"></a><span class="co"># Onondaga towns</span></span>
+<span id="cb3-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-21" tabindex="-1"></a>onondaga_towns <span class="ot">&lt;-</span> towns <span class="sc">%&gt;%</span></span>
+<span id="cb3-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-22" tabindex="-1"></a>  <span class="fu">filter</span>(COUNTY <span class="sc">==</span> <span class="st">&quot;Onondaga&quot;</span>)</span>
+<span id="cb3-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-23" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-24" tabindex="-1"></a><span class="co"># villages</span></span>
+<span id="cb3-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-25" tabindex="-1"></a>villages <span class="ot">&lt;-</span> </span>
+<span id="cb3-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-26" tabindex="-1"></a>  <span class="fu">st_read</span>(<span class="st">&quot;data/NY Village Boundaries/Villages.shp&quot;</span>)</span>
+<span id="cb3-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-27" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-28" tabindex="-1"></a><span class="co"># Onondaga villages</span></span>
+<span id="cb3-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-29" tabindex="-1"></a>onondaga_villages <span class="ot">&lt;-</span> villages <span class="sc">%&gt;%</span></span>
+<span id="cb3-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb3-30" tabindex="-1"></a>  <span class="fu">filter</span>(COUNTY <span class="sc">==</span> <span class="st">&quot;Onondaga&quot;</span>)</span></code></pre></div>
 </div>
 <div id="step-3---filter-the-wwtp-data-for-municipal-sites-only" class="section level3 hasAnchor" number="3.4.3">
 <h3><span class="header-section-number">3.4.3</span> Step 3 - Filter the WWTP data for municipal sites only<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#step-3---filter-the-wwtp-data-for-municipal-sites-only" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># municipal sites only</span></span>
-<span id="cb4-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-2" aria-hidden="true" tabindex="-1"></a>wwtp_mun <span class="ot">&lt;-</span> ny_wwtps <span class="sc">%&gt;%</span></span>
-<span id="cb4-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Plant.Type <span class="sc">==</span> <span class="st">&quot;Municipal&quot;</span>)</span>
-<span id="cb4-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># make the data spatial for mapping purposes using the coordinates in the file</span></span>
-<span id="cb4-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-6" aria-hidden="true" tabindex="-1"></a>wwtp_mun_sf <span class="ot">&lt;-</span> </span>
-<span id="cb4-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(wwtp_mun,</span>
-<span id="cb4-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">coords =</span>  <span class="fu">c</span>(<span class="st">&quot;Longitude&quot;</span>, <span class="st">&quot;Latitude&quot;</span>),</span>
-<span id="cb4-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84&quot;</span>)</span>
-<span id="cb4-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># transform to the same CRS as the Onondaga parcels</span></span>
-<span id="cb4-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-12" aria-hidden="true" tabindex="-1"></a>wwtp_mun_sf <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(wwtp_mun_sf, <span class="fu">st_crs</span>(onondaga_border))</span>
-<span id="cb4-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># filter for Onondaga plants only using st_intersection</span></span>
-<span id="cb4-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-15" aria-hidden="true" tabindex="-1"></a>wwtp_onondaga_sf <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(wwtp_mun_sf, onondaga_border)</span>
-<span id="cb4-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Map out the plants</span></span>
-<span id="cb4-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb4-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb4-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_towns, <span class="at">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
-<span id="cb4-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_villages, <span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
-<span id="cb4-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb4-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/wwtp%20data%20prep-1.png" width="672" /></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-1" tabindex="-1"></a><span class="co"># municipal sites only</span></span>
+<span id="cb4-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-2" tabindex="-1"></a>wwtp_mun <span class="ot">&lt;-</span> ny_wwtps <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-3" tabindex="-1"></a>  <span class="fu">filter</span>(Plant.Type <span class="sc">==</span> <span class="st">&quot;Municipal&quot;</span>)</span>
+<span id="cb4-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-5" tabindex="-1"></a><span class="co"># make the data spatial for mapping purposes using the coordinates in the file</span></span>
+<span id="cb4-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-6" tabindex="-1"></a>wwtp_mun_sf <span class="ot">&lt;-</span> </span>
+<span id="cb4-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-7" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(wwtp_mun,</span>
+<span id="cb4-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-8" tabindex="-1"></a>           <span class="at">coords =</span>  <span class="fu">c</span>(<span class="st">&quot;Longitude&quot;</span>, <span class="st">&quot;Latitude&quot;</span>),</span>
+<span id="cb4-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-9" tabindex="-1"></a>           <span class="at">crs =</span> <span class="st">&quot;+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84&quot;</span>)</span>
+<span id="cb4-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-10" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-11" tabindex="-1"></a><span class="co"># transform to the same CRS as the Onondaga parcels</span></span>
+<span id="cb4-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-12" tabindex="-1"></a>wwtp_mun_sf <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(wwtp_mun_sf, <span class="fu">st_crs</span>(onondaga_border))</span>
+<span id="cb4-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-13" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-14" tabindex="-1"></a><span class="co"># filter for Onondaga plants only using st_intersection</span></span>
+<span id="cb4-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-15" tabindex="-1"></a>wwtp_onondaga_sf <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(wwtp_mun_sf, onondaga_border)</span>
+<span id="cb4-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-16" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-17" tabindex="-1"></a><span class="co"># Map out the plants</span></span>
+<span id="cb4-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-18" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb4-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-19" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb4-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-20" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_towns, <span class="at">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
+<span id="cb4-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-21" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_villages, <span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
+<span id="cb4-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-22" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb4-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb4-23" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/wwtp%20data%20prep-1.png" alt="" width="672" /></p>
 <p>We can see that many WWTPs fall within village or town boundaries. This should help us differentiate the plants that serve different communities. We can also ask the municipalities and local WWTP operators to learn more, but for now, let us assume that we are not sure.</p>
 </div>
 <div id="step-4---filter-the-parcel-data-for-public-sewer-only" class="section level3 hasAnchor" number="3.4.4">
 <h3><span class="header-section-number">3.4.4</span> Step 4 - Filter the parcel data for public sewer only<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#step-4---filter-the-parcel-data-for-public-sewer-only" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are two fields in the data for sewer. One is the <code>SEWER_TYPE</code> and the other is <code>SEWER_DESC</code>. <code>SEWER_DESC</code> includes three categories: Comm/public, None, or Private. We will filter for the Comm/public sewer parcels only.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter for public sewer parcels</span></span>
-<span id="cb5-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(onondaga_parcels<span class="sc">$</span>SEWER_DESC)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb5-1" tabindex="-1"></a><span class="co"># filter for public sewer parcels</span></span>
+<span id="cb5-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb5-2" tabindex="-1"></a><span class="fu">table</span>(onondaga_parcels<span class="sc">$</span>SEWER_DESC)</span></code></pre></div>
 <pre><code>## 
 ## Comm/public        None     Private 
 ##      138461       11440       30452</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-1" aria-hidden="true" tabindex="-1"></a>onondaga_sewer <span class="ot">&lt;-</span> onondaga_parcels <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SEWER_DESC <span class="sc">==</span> <span class="st">&quot;Comm/public&quot;</span>)</span>
-<span id="cb7-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the parcel data</span></span>
-<span id="cb7-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co"> - this will take a moment, there are over 100,000 records</span></span>
-<span id="cb7-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb7-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb7-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_towns, <span class="at">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
-<span id="cb7-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_villages, <span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
-<span id="cb7-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_sewer, <span class="at">color =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb7-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb7-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
-<span id="cb7-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Onondaga county parcels connected to public sewer&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/parcel%20data%20prep-1.png" width="672" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-1" tabindex="-1"></a>onondaga_sewer <span class="ot">&lt;-</span> onondaga_parcels <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-2" tabindex="-1"></a>  <span class="fu">filter</span>(SEWER_DESC <span class="sc">==</span> <span class="st">&quot;Comm/public&quot;</span>)</span>
+<span id="cb7-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-4" tabindex="-1"></a><span class="co"># plot the parcel data</span></span>
+<span id="cb7-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-5" tabindex="-1"></a><span class="co"># </span><span class="al">NOTE</span><span class="co"> - this will take a moment, there are over 100,000 records</span></span>
+<span id="cb7-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-6" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb7-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-7" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb7-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-8" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_towns, <span class="at">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
+<span id="cb7-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-9" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_villages, <span class="at">fill =</span> <span class="st">&quot;orange&quot;</span>, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>)<span class="sc">+</span></span>
+<span id="cb7-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-10" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_sewer, <span class="at">color =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb7-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-11" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb7-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-12" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb7-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb7-13" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Onondaga county parcels connected to public sewer&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/parcel%20data%20prep-1.png" alt="" width="672" /></p>
 </div>
 <div id="step-5---link-sewer-parcels-to-towns-and-villages" class="section level3 hasAnchor" number="3.4.5">
 <h3><span class="header-section-number">3.4.5</span> Step 5 - Link sewer parcels to towns and villages<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#step-5---link-sewer-parcels-to-towns-and-villages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cut out the village boundaries from the towns</span></span>
-<span id="cb8-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-2" aria-hidden="true" tabindex="-1"></a>town_no_village <span class="ot">&lt;-</span><span class="fu">st_difference</span>(onondaga_towns, <span class="fu">st_combine</span>(onondaga_villages))</span>
-<span id="cb8-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect the villages/towns with the sewer parcels</span></span>
-<span id="cb8-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-5" aria-hidden="true" tabindex="-1"></a>sewer_town_intersection <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(onondaga_sewer, town_no_village)</span>
-<span id="cb8-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-6" aria-hidden="true" tabindex="-1"></a>sewer_village_intersection <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(onondaga_sewer, onondaga_villages)</span>
-<span id="cb8-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># group by town / village unit and dissolve</span></span>
-<span id="cb8-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Note we are using a buffer to help remove extra spaces and lines between </span></span>
-<span id="cb8-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># parcels</span></span>
-<span id="cb8-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># first we buffer</span></span>
-<span id="cb8-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-13" aria-hidden="true" tabindex="-1"></a>dissolved_towns <span class="ot">&lt;-</span> sewer_town_intersection <span class="sc">%&gt;%</span></span>
-<span id="cb8-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">100</span>)</span>
-<span id="cb8-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># then dissolve</span></span>
-<span id="cb8-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-18" aria-hidden="true" tabindex="-1"></a>dissolved_towns <span class="ot">&lt;-</span> dissolved_towns <span class="sc">%&gt;%</span> </span>
-<span id="cb8-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(NAME) <span class="sc">%&gt;%</span> <span class="co"># name of the town</span></span>
-<span id="cb8-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb8-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
-<span id="cb8-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-24" aria-hidden="true" tabindex="-1"></a>dissolved_towns <span class="ot">&lt;-</span> dissolved_towns <span class="sc">%&gt;%</span></span>
-<span id="cb8-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">100</span>) </span>
-<span id="cb8-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co"># villages</span></span>
-<span id="cb8-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># first we buffer</span></span>
-<span id="cb8-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-30" aria-hidden="true" tabindex="-1"></a>dissolved_villages <span class="ot">&lt;-</span> sewer_village_intersection <span class="sc">%&gt;%</span></span>
-<span id="cb8-31"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-32"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">100</span>)</span>
-<span id="cb8-33"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-34"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="co"># then dissolve</span></span>
-<span id="cb8-35"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-35" aria-hidden="true" tabindex="-1"></a>dissolved_villages <span class="ot">&lt;-</span> dissolved_villages <span class="sc">%&gt;%</span> </span>
-<span id="cb8-36"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(NAME) <span class="sc">%&gt;%</span></span>
-<span id="cb8-37"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-38"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb8-39"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-40"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
-<span id="cb8-41"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-41" aria-hidden="true" tabindex="-1"></a>dissolved_villages <span class="ot">&lt;-</span> dissolved_villages <span class="sc">%&gt;%</span></span>
-<span id="cb8-42"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">100</span>)</span>
-<span id="cb8-43"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-44"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co"># plot to see how they look</span></span>
-<span id="cb8-45"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb8-46"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb8-47"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved_towns, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">NAME</span><span class="st">`</span>))<span class="sc">+</span></span>
-<span id="cb8-48"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved_villages, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">NAME</span><span class="st">`</span>))<span class="sc">+</span></span>
-<span id="cb8-49"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb8-50"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
-<span id="cb8-51"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/towns%20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-1" tabindex="-1"></a><span class="co"># cut out the village boundaries from the towns</span></span>
+<span id="cb8-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-2" tabindex="-1"></a>town_no_village <span class="ot">&lt;-</span><span class="fu">st_difference</span>(onondaga_towns, <span class="fu">st_combine</span>(onondaga_villages))</span>
+<span id="cb8-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-3" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-4" tabindex="-1"></a><span class="co"># intersect the villages/towns with the sewer parcels</span></span>
+<span id="cb8-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-5" tabindex="-1"></a>sewer_town_intersection <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(onondaga_sewer, town_no_village)</span>
+<span id="cb8-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-6" tabindex="-1"></a>sewer_village_intersection <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(onondaga_sewer, onondaga_villages)</span>
+<span id="cb8-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-8" tabindex="-1"></a><span class="co"># group by town / village unit and dissolve</span></span>
+<span id="cb8-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-9" tabindex="-1"></a><span class="co"># Note we are using a buffer to help remove extra spaces and lines between </span></span>
+<span id="cb8-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-10" tabindex="-1"></a><span class="co"># parcels</span></span>
+<span id="cb8-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-11" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-12" tabindex="-1"></a><span class="co"># first we buffer</span></span>
+<span id="cb8-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-13" tabindex="-1"></a>dissolved_towns <span class="ot">&lt;-</span> sewer_town_intersection <span class="sc">%&gt;%</span></span>
+<span id="cb8-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-14" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-15" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">100</span>)</span>
+<span id="cb8-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-16" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-17" tabindex="-1"></a><span class="co"># then dissolve</span></span>
+<span id="cb8-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-18" tabindex="-1"></a>dissolved_towns <span class="ot">&lt;-</span> dissolved_towns <span class="sc">%&gt;%</span> </span>
+<span id="cb8-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-19" tabindex="-1"></a>  <span class="fu">group_by</span>(NAME) <span class="sc">%&gt;%</span> <span class="co"># name of the town</span></span>
+<span id="cb8-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-20" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-21" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb8-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-22" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-23" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
+<span id="cb8-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-24" tabindex="-1"></a>dissolved_towns <span class="ot">&lt;-</span> dissolved_towns <span class="sc">%&gt;%</span></span>
+<span id="cb8-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-25" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">100</span>) </span>
+<span id="cb8-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-26" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-27" tabindex="-1"></a><span class="co"># villages</span></span>
+<span id="cb8-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-28" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-29" tabindex="-1"></a><span class="co"># first we buffer</span></span>
+<span id="cb8-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-30" tabindex="-1"></a>dissolved_villages <span class="ot">&lt;-</span> sewer_village_intersection <span class="sc">%&gt;%</span></span>
+<span id="cb8-31"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-31" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-32"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-32" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">100</span>)</span>
+<span id="cb8-33"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-33" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-34" tabindex="-1"></a><span class="co"># then dissolve</span></span>
+<span id="cb8-35"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-35" tabindex="-1"></a>dissolved_villages <span class="ot">&lt;-</span> dissolved_villages <span class="sc">%&gt;%</span> </span>
+<span id="cb8-36"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-36" tabindex="-1"></a>  <span class="fu">group_by</span>(NAME) <span class="sc">%&gt;%</span></span>
+<span id="cb8-37"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-37" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-38"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-38" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb8-39"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-39" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-40" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
+<span id="cb8-41"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-41" tabindex="-1"></a>dissolved_villages <span class="ot">&lt;-</span> dissolved_villages <span class="sc">%&gt;%</span></span>
+<span id="cb8-42"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-42" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">100</span>)</span>
+<span id="cb8-43"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-43" tabindex="-1"></a></span>
+<span id="cb8-44"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-44" tabindex="-1"></a><span class="co"># plot to see how they look</span></span>
+<span id="cb8-45"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-45" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb8-46"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-46" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb8-47"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-47" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved_towns, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">NAME</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb8-48"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-48" tabindex="-1"></a>    <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved_villages, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">NAME</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb8-49"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-49" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb8-50"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-50" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb8-51"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb8-51" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/towns%20-1.png" alt="" width="672" /></p>
 <p>We now have two layers, parcels in each town or city that are on sewer and parcels in each village that are on sewer. The next step can be to take these data to a local county planning office and identify which town sewer systems go to each plant, then group the polygons to create the sewershed for that plant.</p>
 <p>Alternatively, let’s do a little more work to make that next step easier. You will notice there are a lot of wayward parcels (parcels that are not near any WWTP or town and look like small “islands”). They likely flow into nearby systems a little ways off. Also, there are a lot of holes in the parcel groups. We will fill in those holes and then intersect the town and village sewer parcels with census blocks to get more robust geometries for the sewersheds. These steps will make using these data for epidemiology a little easier. If you want to keep the more skeletal boundaries for sewers, you can save that data for future reference.</p>
 <div id="clean-up-sewershed-boundaries" class="section level4 hasAnchor" number="3.4.5.1">
 <h4><span class="header-section-number">3.4.5.1</span> Clean up sewershed boundaries<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#clean-up-sewershed-boundaries" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># remove holes</span></span>
-<span id="cb9-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-3" aria-hidden="true" tabindex="-1"></a>dissolved_towns_filled <span class="ot">&lt;-</span> nngeo<span class="sc">::</span><span class="fu">st_remove_holes</span>(dissolved_towns)</span>
-<span id="cb9-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-4" aria-hidden="true" tabindex="-1"></a>dissolved_villages_filled <span class="ot">&lt;-</span> nngeo<span class="sc">::</span><span class="fu">st_remove_holes</span>(dissolved_villages)</span>
-<span id="cb9-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-6" aria-hidden="true" tabindex="-1"></a>sewer_parcel_plot <span class="ot">&lt;-</span> </span>
-<span id="cb9-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb9-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb9-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved_towns_filled, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> NAME))<span class="sc">+</span></span>
-<span id="cb9-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved_villages_filled, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> NAME))<span class="sc">+</span></span>
-<span id="cb9-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb9-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Town and village parcels that are on sewer&quot;</span>)<span class="sc">+</span></span>
-<span id="cb9-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
-<span id="cb9-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb9-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
-<span id="cb9-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-17" aria-hidden="true" tabindex="-1"></a>sewer_parcel_plot</span></code></pre></div>
-<p><img src="_main_files/figure-html/remove%20holes-1.png" width="672" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-1" tabindex="-1"></a><span class="co"># remove holes</span></span>
+<span id="cb9-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-2" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-3" tabindex="-1"></a>dissolved_towns_filled <span class="ot">&lt;-</span> nngeo<span class="sc">::</span><span class="fu">st_remove_holes</span>(dissolved_towns)</span>
+<span id="cb9-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-4" tabindex="-1"></a>dissolved_villages_filled <span class="ot">&lt;-</span> nngeo<span class="sc">::</span><span class="fu">st_remove_holes</span>(dissolved_villages)</span>
+<span id="cb9-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-6" tabindex="-1"></a>sewer_parcel_plot <span class="ot">&lt;-</span> </span>
+<span id="cb9-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-7" tabindex="-1"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb9-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-8" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb9-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-9" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved_towns_filled, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> NAME))<span class="sc">+</span></span>
+<span id="cb9-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-10" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved_villages_filled, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> NAME))<span class="sc">+</span></span>
+<span id="cb9-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-11" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb9-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-12" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Town and village parcels that are on sewer&quot;</span>)<span class="sc">+</span></span>
+<span id="cb9-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-13" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb9-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-14" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb9-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-15" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb9-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-16" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb9-17" tabindex="-1"></a>sewer_parcel_plot</span></code></pre></div>
+<p><img src="_main_files/figure-html/remove%20holes-1.png" alt="" width="672" /></p>
 </div>
 </div>
 <div id="step-6---assign-polygons-to-wwtps" class="section level3 hasAnchor" number="3.4.6">
 <h3><span class="header-section-number">3.4.6</span> Step 6 - Assign polygons to WWTPs<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#step-6---assign-polygons-to-wwtps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We want to now bring our village and town parcel polygons together into one shapefile layer and link the polygons to the nearest WWTP.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine village and town parcels into on R data object</span></span>
-<span id="cb10-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-2" aria-hidden="true" tabindex="-1"></a>village_town_sewer <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb10-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-3" aria-hidden="true" tabindex="-1"></a>                                dissolved_towns_filled, </span>
-<span id="cb10-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-4" aria-hidden="true" tabindex="-1"></a>                                dissolved_villages_filled</span>
-<span id="cb10-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-5" aria-hidden="true" tabindex="-1"></a>                                )</span>
-<span id="cb10-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># assign each polygon to a point based on proximity</span></span>
-<span id="cb10-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-9" aria-hidden="true" tabindex="-1"></a>near <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(village_town_sewer, wwtp_onondaga_sf)</span>
-<span id="cb10-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co"># using the row numbers for the nearest feature, we can begin to create some </span></span>
-<span id="cb10-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># sewershed boundaries</span></span>
-<span id="cb10-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-13" aria-hidden="true" tabindex="-1"></a>wwtp_onondaga_sf<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(wwtp_onondaga_sf))</span>
-<span id="cb10-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-14" aria-hidden="true" tabindex="-1"></a>village_town_sewer<span class="sc">$</span>parcel_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(village_town_sewer))</span>
-<span id="cb10-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># combine the list of near wwtps with the Onondaga sewer dataset</span></span>
-<span id="cb10-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-17" aria-hidden="true" tabindex="-1"></a>near_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(village_town_sewer, near))</span>
-<span id="cb10-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># rename near value to be the wwtp_row_id</span></span>
-<span id="cb10-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-20" aria-hidden="true" tabindex="-1"></a>near_df<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> near_df<span class="sc">$</span>near</span>
-<span id="cb10-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="co"># to avoid extra &quot;lines&quot; in our dissolved polygons, we buffer the parcels first</span></span>
-<span id="cb10-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co"># first we buffer</span></span>
-<span id="cb10-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-25" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> near_df <span class="sc">%&gt;%</span></span>
-<span id="cb10-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb10-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">10</span>)</span>
-<span id="cb10-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co"># then dissolve</span></span>
-<span id="cb10-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-30" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span> </span>
-<span id="cb10-31"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wwtp_row_id) <span class="sc">%&gt;%</span></span>
-<span id="cb10-32"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb10-33"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb10-34"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-35"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
-<span id="cb10-36"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-36" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span></span>
-<span id="cb10-37"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">10</span>) </span>
-<span id="cb10-38"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-39"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-39" aria-hidden="true" tabindex="-1"></a><span class="co"># add the wwtp metadata</span></span>
-<span id="cb10-40"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-40" aria-hidden="true" tabindex="-1"></a>onondaga_meta <span class="ot">&lt;-</span> wwtp_onondaga_sf <span class="sc">%&gt;%</span></span>
-<span id="cb10-41"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() </span>
-<span id="cb10-42"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-43"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-43" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span></span>
-<span id="cb10-44"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(onondaga_meta, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;wwtp_row_id&quot;</span>))</span>
-<span id="cb10-45"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-46"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-46" aria-hidden="true" tabindex="-1"></a><span class="co"># plot to see how they look</span></span>
-<span id="cb10-47"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-47" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb10-48"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb10-49"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved, <span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">Facility.Name</span><span class="st">`</span>))<span class="sc">+</span></span>
-<span id="cb10-50"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb10-51"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
-<span id="cb10-52"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
-<span id="cb10-53"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>))<span class="sc">+</span></span>
-<span id="cb10-54"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> MetBrewer<span class="sc">::</span><span class="fu">met.brewer</span>(<span class="at">name =</span> <span class="st">&quot;Nizami&quot;</span>, <span class="at">n =</span> <span class="dv">11</span>),</span>
-<span id="cb10-55"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-55" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="cf">function</span>(x) stringr<span class="sc">::</span><span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">15</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/link%20parcel%20polys%20to%20points-1.png" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-1" tabindex="-1"></a><span class="co"># combine village and town parcels into on R data object</span></span>
+<span id="cb10-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-2" tabindex="-1"></a>village_town_sewer <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb10-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-3" tabindex="-1"></a>                                dissolved_towns_filled, </span>
+<span id="cb10-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-4" tabindex="-1"></a>                                dissolved_villages_filled</span>
+<span id="cb10-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-5" tabindex="-1"></a>                                )</span>
+<span id="cb10-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-7" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-8" tabindex="-1"></a><span class="co"># assign each polygon to a point based on proximity</span></span>
+<span id="cb10-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-9" tabindex="-1"></a>near <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(village_town_sewer, wwtp_onondaga_sf)</span>
+<span id="cb10-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-10" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-11" tabindex="-1"></a><span class="co"># using the row numbers for the nearest feature, we can begin to create some </span></span>
+<span id="cb10-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-12" tabindex="-1"></a><span class="co"># sewershed boundaries</span></span>
+<span id="cb10-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-13" tabindex="-1"></a>wwtp_onondaga_sf<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(wwtp_onondaga_sf))</span>
+<span id="cb10-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-14" tabindex="-1"></a>village_town_sewer<span class="sc">$</span>parcel_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(village_town_sewer))</span>
+<span id="cb10-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-15" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-16" tabindex="-1"></a><span class="co"># combine the list of near wwtps with the Onondaga sewer dataset</span></span>
+<span id="cb10-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-17" tabindex="-1"></a>near_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(village_town_sewer, near))</span>
+<span id="cb10-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-18" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-19" tabindex="-1"></a><span class="co"># rename near value to be the wwtp_row_id</span></span>
+<span id="cb10-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-20" tabindex="-1"></a>near_df<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> near_df<span class="sc">$</span>near</span>
+<span id="cb10-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-21" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-22" tabindex="-1"></a><span class="co"># to avoid extra &quot;lines&quot; in our dissolved polygons, we buffer the parcels first</span></span>
+<span id="cb10-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-23" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-24" tabindex="-1"></a><span class="co"># first we buffer</span></span>
+<span id="cb10-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-25" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> near_df <span class="sc">%&gt;%</span></span>
+<span id="cb10-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-26" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-27" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">10</span>)</span>
+<span id="cb10-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-28" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-29" tabindex="-1"></a><span class="co"># then dissolve</span></span>
+<span id="cb10-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-30" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span> </span>
+<span id="cb10-31"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-31" tabindex="-1"></a>  <span class="fu">group_by</span>(wwtp_row_id) <span class="sc">%&gt;%</span></span>
+<span id="cb10-32"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-32" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-33"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-33" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb10-34"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-34" tabindex="-1"></a></span>
+<span id="cb10-35"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-35" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
+<span id="cb10-36"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-36" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span></span>
+<span id="cb10-37"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-37" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">10</span>) </span>
+<span id="cb10-38"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-38" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-39" tabindex="-1"></a><span class="co"># add the wwtp metadata</span></span>
+<span id="cb10-40"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-40" tabindex="-1"></a>onondaga_meta <span class="ot">&lt;-</span> wwtp_onondaga_sf <span class="sc">%&gt;%</span></span>
+<span id="cb10-41"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-41" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() </span>
+<span id="cb10-42"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-42" tabindex="-1"></a></span>
+<span id="cb10-43"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-43" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span></span>
+<span id="cb10-44"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-44" tabindex="-1"></a>  <span class="fu">left_join</span>(onondaga_meta, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;wwtp_row_id&quot;</span>))</span>
+<span id="cb10-45"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-45" tabindex="-1"></a></span>
+<span id="cb10-46"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-46" tabindex="-1"></a><span class="co"># plot to see how they look</span></span>
+<span id="cb10-47"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-47" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb10-48"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-48" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb10-49"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-49" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved, <span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">Facility.Name</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb10-50"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-50" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-51"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-51" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb10-52"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-52" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)<span class="sc">+</span></span>
+<span id="cb10-53"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-53" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_legend</span>(<span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>))<span class="sc">+</span></span>
+<span id="cb10-54"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-54" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> MetBrewer<span class="sc">::</span><span class="fu">met.brewer</span>(<span class="at">name =</span> <span class="st">&quot;Nizami&quot;</span>, <span class="at">n =</span> <span class="dv">11</span>),</span>
+<span id="cb10-55"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb10-55" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="cf">function</span>(x) stringr<span class="sc">::</span><span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">15</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/link%20parcel%20polys%20to%20points-1.png" alt="" width="672" /></p>
 <p>We can save these R objects as shapefiles.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(dissolved_towns_filled, </span>
-<span id="cb11-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">dsn =</span> <span class="st">&quot;data/onondaga town sewer parcels/onondaga town sewer parcels.shp&quot;</span>)</span>
-<span id="cb11-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(dissolved_villages_filled, </span>
-<span id="cb11-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">dsn =</span> <span class="st">&quot;data/onondaga village sewer parcels/onondaga village sewer parcels.shp&quot;</span>)</span>
-<span id="cb11-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_write</span>(dissolved, </span>
-<span id="cb11-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">dsn =</span> <span class="st">&quot;data/town village sewer parcels/town village sewer parcels.shp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-1" tabindex="-1"></a><span class="fu">st_write</span>(dissolved_towns_filled, </span>
+<span id="cb11-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-2" tabindex="-1"></a>         <span class="at">dsn =</span> <span class="st">&quot;data/onondaga town sewer parcels/onondaga town sewer parcels.shp&quot;</span>)</span>
+<span id="cb11-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-4" tabindex="-1"></a><span class="fu">st_write</span>(dissolved_villages_filled, </span>
+<span id="cb11-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-5" tabindex="-1"></a>         <span class="at">dsn =</span> <span class="st">&quot;data/onondaga village sewer parcels/onondaga village sewer parcels.shp&quot;</span>)</span>
+<span id="cb11-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-6" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-7" tabindex="-1"></a><span class="fu">st_write</span>(dissolved, </span>
+<span id="cb11-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb11-8" tabindex="-1"></a>         <span class="at">dsn =</span> <span class="st">&quot;data/town village sewer parcels/town village sewer parcels.shp&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="training-review" class="section level2 hasAnchor" number="3.5">
@@ -568,211 +569,211 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>An advantage to including the entire block that intersects with a sewershed parcel is that it will make merging these data with census population data easier in the future. Obtaining accurate population estimates for the number of people on sewer is an important part of wastewater-based epidemiology.</p>
 <div id="download-censusblocks-for-nys" class="section level4 hasAnchor" number="3.5.2.1">
 <h4><span class="header-section-number">3.5.2.1</span> Download censusblocks for NYS<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#download-censusblocks-for-nys" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb12-1" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> tigris<span class="sc">::</span><span class="fu">blocks</span>(<span class="at">state =</span> <span class="st">&quot;New York&quot;</span>, <span class="at">county =</span> <span class="st">&quot;Onondaga&quot;</span>, <span class="at">year =</span> <span class="dv">2020</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># blocks that intersect with town sewer parcels</span></span>
-<span id="cb13-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># transform crs to match</span></span>
-<span id="cb13-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(b, <span class="fu">st_crs</span>(dissolved_towns_filled))</span>
-<span id="cb13-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-5" aria-hidden="true" tabindex="-1"></a>town_sewer_b <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(b, dissolved_towns_filled)</span>
-<span id="cb13-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-6" aria-hidden="true" tabindex="-1"></a>town_sewer_b <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(town_sewer_b)</span>
-<span id="cb13-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># blocks that intersect with village sewer parcels</span></span>
-<span id="cb13-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-9" aria-hidden="true" tabindex="-1"></a>village_sewer_b <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(b, dissolved_villages_filled)</span>
-<span id="cb13-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-10" aria-hidden="true" tabindex="-1"></a>village_sewer_b <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(village_sewer_b)</span>
-<span id="cb13-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># add row ids and then select for row ids in the intersection</span></span>
-<span id="cb13-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-13" aria-hidden="true" tabindex="-1"></a>b<span class="sc">$</span>b_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(b))</span>
-<span id="cb13-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-15" aria-hidden="true" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> b <span class="sc">%&gt;%</span> </span>
-<span id="cb13-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(b_row_id <span class="sc">%in%</span> village_sewer_b<span class="sc">$</span>row.id)</span>
-<span id="cb13-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-17" aria-hidden="true" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> b <span class="sc">%&gt;%</span></span>
-<span id="cb13-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-18" aria-hidden="true" tabindex="-1"></a>   <span class="fu">filter</span>(b_row_id <span class="sc">%in%</span> town_sewer_b<span class="sc">$</span>row.id)</span>
-<span id="cb13-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co"># add town / village sewer </span></span>
-<span id="cb13-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-21" aria-hidden="true" tabindex="-1"></a>dissolved_towns_filled<span class="sc">$</span>town_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(dissolved_towns_filled))</span>
-<span id="cb13-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-22" aria-hidden="true" tabindex="-1"></a>dissolved_villages_filled<span class="sc">$</span>village_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(dissolved_villages_filled))</span>
-<span id="cb13-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-24" aria-hidden="true" tabindex="-1"></a>village_sewer_b <span class="ot">&lt;-</span> village_sewer_b <span class="sc">%&gt;%</span></span>
-<span id="cb13-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">village_id =</span> col.id,</span>
-<span id="cb13-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">b_row_id =</span> row.id) <span class="sc">%&gt;%</span></span>
-<span id="cb13-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(dissolved_villages_filled, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;village_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb13-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>geometry)</span>
-<span id="cb13-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-31"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-31" aria-hidden="true" tabindex="-1"></a><span class="co"># add to village_sewer_blocks</span></span>
-<span id="cb13-32"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-32" aria-hidden="true" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> <span class="fu">left_join</span>(village_sewer_blocks, village_sewer_b, </span>
-<span id="cb13-33"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-33" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;b_row_id&quot;</span>)</span>
-<span id="cb13-34"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-34" aria-hidden="true" tabindex="-1"></a>                                  )</span>
-<span id="cb13-35"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-36"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-36" aria-hidden="true" tabindex="-1"></a><span class="co"># group by village and dissolve</span></span>
-<span id="cb13-37"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-38"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="co"># first we buffer</span></span>
-<span id="cb13-39"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-39" aria-hidden="true" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> village_sewer_blocks <span class="sc">%&gt;%</span></span>
-<span id="cb13-40"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-41"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">100</span>)</span>
-<span id="cb13-42"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-43"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-43" aria-hidden="true" tabindex="-1"></a><span class="co"># then dissolve</span></span>
-<span id="cb13-44"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-44" aria-hidden="true" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> village_sewer_blocks <span class="sc">%&gt;%</span> </span>
-<span id="cb13-45"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(NAME) <span class="sc">%&gt;%</span></span>
-<span id="cb13-46"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-47"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb13-48"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-49"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
-<span id="cb13-50"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-50" aria-hidden="true" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> village_sewer_blocks <span class="sc">%&gt;%</span></span>
-<span id="cb13-51"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">100</span>)</span>
-<span id="cb13-52"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-53"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-53" aria-hidden="true" tabindex="-1"></a><span class="do">## repeat for towns</span></span>
-<span id="cb13-54"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-55"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-55" aria-hidden="true" tabindex="-1"></a>town_sewer_b <span class="ot">&lt;-</span> town_sewer_b <span class="sc">%&gt;%</span></span>
-<span id="cb13-56"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">town_id =</span> col.id,</span>
-<span id="cb13-57"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-57" aria-hidden="true" tabindex="-1"></a>         <span class="at">b_row_id =</span> row.id) <span class="sc">%&gt;%</span></span>
-<span id="cb13-58"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(dissolved_towns_filled, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;town_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb13-59"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-60"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>geometry)</span>
-<span id="cb13-61"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-62"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-62" aria-hidden="true" tabindex="-1"></a><span class="co"># add to village_sewer_blocks</span></span>
-<span id="cb13-63"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-63" aria-hidden="true" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> <span class="fu">left_join</span>(town_sewer_blocks, town_sewer_b, </span>
-<span id="cb13-64"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-64" aria-hidden="true" tabindex="-1"></a>                               <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;b_row_id&quot;</span>)</span>
-<span id="cb13-65"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-65" aria-hidden="true" tabindex="-1"></a>                               )</span>
-<span id="cb13-66"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-67"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-67" aria-hidden="true" tabindex="-1"></a><span class="co"># group by village and dissolve</span></span>
-<span id="cb13-68"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-69"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-69" aria-hidden="true" tabindex="-1"></a><span class="co"># first we buffer</span></span>
-<span id="cb13-70"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-70" aria-hidden="true" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> town_sewer_blocks <span class="sc">%&gt;%</span></span>
-<span id="cb13-71"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-72"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">100</span>)</span>
-<span id="cb13-73"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-74"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-74" aria-hidden="true" tabindex="-1"></a><span class="co"># then dissolve</span></span>
-<span id="cb13-75"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-75" aria-hidden="true" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> town_sewer_blocks <span class="sc">%&gt;%</span> </span>
-<span id="cb13-76"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(NAME) <span class="sc">%&gt;%</span></span>
-<span id="cb13-77"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-78"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb13-79"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-80"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-80" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
-<span id="cb13-81"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-81" aria-hidden="true" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> town_sewer_blocks <span class="sc">%&gt;%</span></span>
-<span id="cb13-82"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">100</span>)</span>
-<span id="cb13-83"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-84"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-84" aria-hidden="true" tabindex="-1"></a><span class="co"># fill holes</span></span>
-<span id="cb13-85"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-85" aria-hidden="true" tabindex="-1"></a>town_sewer_blocks_filled <span class="ot">&lt;-</span> nngeo<span class="sc">::</span><span class="fu">st_remove_holes</span>(town_sewer_blocks)</span>
-<span id="cb13-86"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-86" aria-hidden="true" tabindex="-1"></a>village_sewer_blocks_filled <span class="ot">&lt;-</span> nngeo<span class="sc">::</span><span class="fu">st_remove_holes</span>(village_sewer_blocks)</span>
-<span id="cb13-87"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-88"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-88" aria-hidden="true" tabindex="-1"></a>block_sewer_plot <span class="ot">&lt;-</span></span>
-<span id="cb13-89"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb13-90"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb13-91"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> village_sewer_blocks_filled, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb13-92"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-92" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> NAME)</span>
-<span id="cb13-93"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-93" aria-hidden="true" tabindex="-1"></a>          )<span class="sc">+</span></span>
-<span id="cb13-94"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> town_sewer_blocks_filled, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb13-95"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-95" aria-hidden="true" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> NAME)</span>
-<span id="cb13-96"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-96" aria-hidden="true" tabindex="-1"></a>          )<span class="sc">+</span></span>
-<span id="cb13-97"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-97" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb13-98"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Town and  village blocks that intersect with</span><span class="sc">\n</span><span class="st">parcels on sewer&quot;</span>)<span class="sc">+</span></span>
-<span id="cb13-99"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
-<span id="cb13-100"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb13-101"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-101" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
-<span id="cb13-102"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-103"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-103" aria-hidden="true" tabindex="-1"></a><span class="co"># block_sewer_plot</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb12-1" tabindex="-1"></a>b <span class="ot">&lt;-</span> tigris<span class="sc">::</span><span class="fu">blocks</span>(<span class="at">state =</span> <span class="st">&quot;New York&quot;</span>, <span class="at">county =</span> <span class="st">&quot;Onondaga&quot;</span>, <span class="at">year =</span> <span class="dv">2020</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-1" tabindex="-1"></a><span class="co"># blocks that intersect with town sewer parcels</span></span>
+<span id="cb13-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-2" tabindex="-1"></a><span class="co"># transform crs to match</span></span>
+<span id="cb13-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-3" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(b, <span class="fu">st_crs</span>(dissolved_towns_filled))</span>
+<span id="cb13-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-4" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-5" tabindex="-1"></a>town_sewer_b <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(b, dissolved_towns_filled)</span>
+<span id="cb13-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-6" tabindex="-1"></a>town_sewer_b <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(town_sewer_b)</span>
+<span id="cb13-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-7" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-8" tabindex="-1"></a><span class="co"># blocks that intersect with village sewer parcels</span></span>
+<span id="cb13-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-9" tabindex="-1"></a>village_sewer_b <span class="ot">&lt;-</span> <span class="fu">st_intersects</span>(b, dissolved_villages_filled)</span>
+<span id="cb13-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-10" tabindex="-1"></a>village_sewer_b <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(village_sewer_b)</span>
+<span id="cb13-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-11" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-12" tabindex="-1"></a><span class="co"># add row ids and then select for row ids in the intersection</span></span>
+<span id="cb13-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-13" tabindex="-1"></a>b<span class="sc">$</span>b_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(b))</span>
+<span id="cb13-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-14" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-15" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> b <span class="sc">%&gt;%</span> </span>
+<span id="cb13-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-16" tabindex="-1"></a>  <span class="fu">filter</span>(b_row_id <span class="sc">%in%</span> village_sewer_b<span class="sc">$</span>row.id)</span>
+<span id="cb13-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-17" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> b <span class="sc">%&gt;%</span></span>
+<span id="cb13-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-18" tabindex="-1"></a>   <span class="fu">filter</span>(b_row_id <span class="sc">%in%</span> town_sewer_b<span class="sc">$</span>row.id)</span>
+<span id="cb13-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-19" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-20" tabindex="-1"></a><span class="co"># add town / village sewer </span></span>
+<span id="cb13-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-21" tabindex="-1"></a>dissolved_towns_filled<span class="sc">$</span>town_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(dissolved_towns_filled))</span>
+<span id="cb13-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-22" tabindex="-1"></a>dissolved_villages_filled<span class="sc">$</span>village_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(dissolved_villages_filled))</span>
+<span id="cb13-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-23" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-24" tabindex="-1"></a>village_sewer_b <span class="ot">&lt;-</span> village_sewer_b <span class="sc">%&gt;%</span></span>
+<span id="cb13-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-25" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">village_id =</span> col.id,</span>
+<span id="cb13-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-26" tabindex="-1"></a>         <span class="at">b_row_id =</span> row.id) <span class="sc">%&gt;%</span></span>
+<span id="cb13-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-27" tabindex="-1"></a>  <span class="fu">left_join</span>(dissolved_villages_filled, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;village_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-28" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-29" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>geometry)</span>
+<span id="cb13-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-30" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-31" tabindex="-1"></a><span class="co"># add to village_sewer_blocks</span></span>
+<span id="cb13-32"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-32" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> <span class="fu">left_join</span>(village_sewer_blocks, village_sewer_b, </span>
+<span id="cb13-33"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-33" tabindex="-1"></a>                                  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;b_row_id&quot;</span>)</span>
+<span id="cb13-34"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-34" tabindex="-1"></a>                                  )</span>
+<span id="cb13-35"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-35" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-36" tabindex="-1"></a><span class="co"># group by village and dissolve</span></span>
+<span id="cb13-37"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-37" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-38" tabindex="-1"></a><span class="co"># first we buffer</span></span>
+<span id="cb13-39"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-39" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> village_sewer_blocks <span class="sc">%&gt;%</span></span>
+<span id="cb13-40"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-40" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-41"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-41" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">100</span>)</span>
+<span id="cb13-42"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-42" tabindex="-1"></a></span>
+<span id="cb13-43"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-43" tabindex="-1"></a><span class="co"># then dissolve</span></span>
+<span id="cb13-44"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-44" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> village_sewer_blocks <span class="sc">%&gt;%</span> </span>
+<span id="cb13-45"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-45" tabindex="-1"></a>  <span class="fu">group_by</span>(NAME) <span class="sc">%&gt;%</span></span>
+<span id="cb13-46"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-46" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-47"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-47" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb13-48"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-48" tabindex="-1"></a></span>
+<span id="cb13-49"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-49" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
+<span id="cb13-50"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-50" tabindex="-1"></a>village_sewer_blocks <span class="ot">&lt;-</span> village_sewer_blocks <span class="sc">%&gt;%</span></span>
+<span id="cb13-51"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-51" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">100</span>)</span>
+<span id="cb13-52"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-52" tabindex="-1"></a></span>
+<span id="cb13-53"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-53" tabindex="-1"></a><span class="do">## repeat for towns</span></span>
+<span id="cb13-54"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-54" tabindex="-1"></a></span>
+<span id="cb13-55"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-55" tabindex="-1"></a>town_sewer_b <span class="ot">&lt;-</span> town_sewer_b <span class="sc">%&gt;%</span></span>
+<span id="cb13-56"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-56" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">town_id =</span> col.id,</span>
+<span id="cb13-57"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-57" tabindex="-1"></a>         <span class="at">b_row_id =</span> row.id) <span class="sc">%&gt;%</span></span>
+<span id="cb13-58"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-58" tabindex="-1"></a>  <span class="fu">left_join</span>(dissolved_towns_filled, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;town_id&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb13-59"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-59" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-60"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-60" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>geometry)</span>
+<span id="cb13-61"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-61" tabindex="-1"></a></span>
+<span id="cb13-62"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-62" tabindex="-1"></a><span class="co"># add to village_sewer_blocks</span></span>
+<span id="cb13-63"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-63" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> <span class="fu">left_join</span>(town_sewer_blocks, town_sewer_b, </span>
+<span id="cb13-64"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-64" tabindex="-1"></a>                               <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;b_row_id&quot;</span>)</span>
+<span id="cb13-65"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-65" tabindex="-1"></a>                               )</span>
+<span id="cb13-66"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-66" tabindex="-1"></a></span>
+<span id="cb13-67"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-67" tabindex="-1"></a><span class="co"># group by village and dissolve</span></span>
+<span id="cb13-68"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-68" tabindex="-1"></a></span>
+<span id="cb13-69"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-69" tabindex="-1"></a><span class="co"># first we buffer</span></span>
+<span id="cb13-70"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-70" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> town_sewer_blocks <span class="sc">%&gt;%</span></span>
+<span id="cb13-71"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-71" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-72"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-72" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">100</span>)</span>
+<span id="cb13-73"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-73" tabindex="-1"></a></span>
+<span id="cb13-74"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-74" tabindex="-1"></a><span class="co"># then dissolve</span></span>
+<span id="cb13-75"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-75" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> town_sewer_blocks <span class="sc">%&gt;%</span> </span>
+<span id="cb13-76"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-76" tabindex="-1"></a>  <span class="fu">group_by</span>(NAME) <span class="sc">%&gt;%</span></span>
+<span id="cb13-77"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-77" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-78"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-78" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb13-79"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-79" tabindex="-1"></a></span>
+<span id="cb13-80"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-80" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
+<span id="cb13-81"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-81" tabindex="-1"></a>town_sewer_blocks <span class="ot">&lt;-</span> town_sewer_blocks <span class="sc">%&gt;%</span></span>
+<span id="cb13-82"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-82" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">100</span>)</span>
+<span id="cb13-83"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-83" tabindex="-1"></a></span>
+<span id="cb13-84"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-84" tabindex="-1"></a><span class="co"># fill holes</span></span>
+<span id="cb13-85"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-85" tabindex="-1"></a>town_sewer_blocks_filled <span class="ot">&lt;-</span> nngeo<span class="sc">::</span><span class="fu">st_remove_holes</span>(town_sewer_blocks)</span>
+<span id="cb13-86"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-86" tabindex="-1"></a>village_sewer_blocks_filled <span class="ot">&lt;-</span> nngeo<span class="sc">::</span><span class="fu">st_remove_holes</span>(village_sewer_blocks)</span>
+<span id="cb13-87"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-87" tabindex="-1"></a></span>
+<span id="cb13-88"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-88" tabindex="-1"></a>block_sewer_plot <span class="ot">&lt;-</span></span>
+<span id="cb13-89"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-89" tabindex="-1"></a>  <span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb13-90"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-90" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb13-91"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-91" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> village_sewer_blocks_filled, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb13-92"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-92" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> NAME)</span>
+<span id="cb13-93"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-93" tabindex="-1"></a>          )<span class="sc">+</span></span>
+<span id="cb13-94"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-94" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> town_sewer_blocks_filled, <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb13-95"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-95" tabindex="-1"></a>          <span class="fu">aes</span>(<span class="at">fill =</span> NAME)</span>
+<span id="cb13-96"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-96" tabindex="-1"></a>          )<span class="sc">+</span></span>
+<span id="cb13-97"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-97" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb13-98"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-98" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Town and  village blocks that intersect with</span><span class="sc">\n</span><span class="st">parcels on sewer&quot;</span>)<span class="sc">+</span></span>
+<span id="cb13-99"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-99" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb13-100"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-100" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb13-101"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-101" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))</span>
+<span id="cb13-102"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-102" tabindex="-1"></a></span>
+<span id="cb13-103"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb13-103" tabindex="-1"></a><span class="co"># block_sewer_plot</span></span></code></pre></div>
 <p>So now we have two sets of data to bring to the local planning offices or WWTP operators to help in creating the final boundaries. Let’s take a look at them side by side.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb14-1" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(sewer_parcel_plot, block_sewer_plot, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/final%20maps-1.png" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb14-1" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(sewer_parcel_plot, block_sewer_plot, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/final%20maps-1.png" alt="" width="672" /></p>
 <p>We can also link these data to the nearest WWTP like we did for parcels.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># combine into one object</span></span>
-<span id="cb15-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-2" aria-hidden="true" tabindex="-1"></a>village_town_blocks <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(town_sewer_blocks, village_sewer_blocks)</span>
-<span id="cb15-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># assign each polygon to a point based on proximity</span></span>
-<span id="cb15-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-5" aria-hidden="true" tabindex="-1"></a>near <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(village_town_blocks, wwtp_onondaga_sf)</span>
-<span id="cb15-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># using the rownumbers for the nearest feature, we can begin to create some </span></span>
-<span id="cb15-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># sewershed boundaries</span></span>
-<span id="cb15-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-9" aria-hidden="true" tabindex="-1"></a>wwtp_onondaga_sf<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(wwtp_onondaga_sf))</span>
-<span id="cb15-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-10" aria-hidden="true" tabindex="-1"></a>village_town_blocks<span class="sc">$</span>parcel_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(village_town_blocks))</span>
-<span id="cb15-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># combine the list of near wwtps with the onondaga sewer dataset</span></span>
-<span id="cb15-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-13" aria-hidden="true" tabindex="-1"></a>near_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(village_town_blocks, near))</span>
-<span id="cb15-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># rename near value to be the wwtp_row_id</span></span>
-<span id="cb15-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-16" aria-hidden="true" tabindex="-1"></a>near_df<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> near_df<span class="sc">$</span>near</span>
-<span id="cb15-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co"># to avoid extra &quot;lines&quot; in our dissolved polygons, we buffer the parcels first</span></span>
-<span id="cb15-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co"># first we buffer</span></span>
-<span id="cb15-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-21" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> near_df <span class="sc">%&gt;%</span></span>
-<span id="cb15-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">10</span>)</span>
-<span id="cb15-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co"># then dissolve</span></span>
-<span id="cb15-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-26" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span> </span>
-<span id="cb15-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wwtp_row_id) <span class="sc">%&gt;%</span></span>
-<span id="cb15-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb15-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-31"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
-<span id="cb15-32"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-32" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span></span>
-<span id="cb15-33"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">10</span>) </span>
-<span id="cb15-34"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-35"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="co"># add the wwtp metadata</span></span>
-<span id="cb15-36"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-36" aria-hidden="true" tabindex="-1"></a>onondaga_meta <span class="ot">&lt;-</span> wwtp_onondaga_sf <span class="sc">%&gt;%</span></span>
-<span id="cb15-37"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() </span>
-<span id="cb15-38"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-39"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-39" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span></span>
-<span id="cb15-40"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(onondaga_meta, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;wwtp_row_id&quot;</span>))</span>
-<span id="cb15-41"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-42"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="co"># plot to see how they look</span></span>
-<span id="cb15-43"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb15-44"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb15-45"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved, <span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">Facility.Name</span><span class="st">`</span>))<span class="sc">+</span></span>
-<span id="cb15-46"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
-<span id="cb15-47"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
-<span id="cb15-48"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/village%20blocks-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-1" tabindex="-1"></a><span class="co"># combine into one object</span></span>
+<span id="cb15-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-2" tabindex="-1"></a>village_town_blocks <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(town_sewer_blocks, village_sewer_blocks)</span>
+<span id="cb15-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-3" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-4" tabindex="-1"></a><span class="co"># assign each polygon to a point based on proximity</span></span>
+<span id="cb15-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-5" tabindex="-1"></a>near <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(village_town_blocks, wwtp_onondaga_sf)</span>
+<span id="cb15-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-6" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-7" tabindex="-1"></a><span class="co"># using the rownumbers for the nearest feature, we can begin to create some </span></span>
+<span id="cb15-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-8" tabindex="-1"></a><span class="co"># sewershed boundaries</span></span>
+<span id="cb15-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-9" tabindex="-1"></a>wwtp_onondaga_sf<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(wwtp_onondaga_sf))</span>
+<span id="cb15-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-10" tabindex="-1"></a>village_town_blocks<span class="sc">$</span>parcel_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(village_town_blocks))</span>
+<span id="cb15-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-11" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-12" tabindex="-1"></a><span class="co"># combine the list of near wwtps with the onondaga sewer dataset</span></span>
+<span id="cb15-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-13" tabindex="-1"></a>near_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(village_town_blocks, near))</span>
+<span id="cb15-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-14" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-15" tabindex="-1"></a><span class="co"># rename near value to be the wwtp_row_id</span></span>
+<span id="cb15-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-16" tabindex="-1"></a>near_df<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> near_df<span class="sc">$</span>near</span>
+<span id="cb15-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-17" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-18" tabindex="-1"></a><span class="co"># to avoid extra &quot;lines&quot; in our dissolved polygons, we buffer the parcels first</span></span>
+<span id="cb15-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-19" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-20" tabindex="-1"></a><span class="co"># first we buffer</span></span>
+<span id="cb15-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-21" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> near_df <span class="sc">%&gt;%</span></span>
+<span id="cb15-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-22" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-23"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-23" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="dv">10</span>)</span>
+<span id="cb15-24"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-24" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-25" tabindex="-1"></a><span class="co"># then dissolve</span></span>
+<span id="cb15-26"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-26" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span> </span>
+<span id="cb15-27"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-27" tabindex="-1"></a>  <span class="fu">group_by</span>(wwtp_row_id) <span class="sc">%&gt;%</span></span>
+<span id="cb15-28"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-28" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb15-29"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-29" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb15-30"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-30" tabindex="-1"></a></span>
+<span id="cb15-31"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-31" tabindex="-1"></a><span class="co"># remove the buffer distance</span></span>
+<span id="cb15-32"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-32" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span></span>
+<span id="cb15-33"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-33" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="sc">-</span><span class="dv">10</span>) </span>
+<span id="cb15-34"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-34" tabindex="-1"></a></span>
+<span id="cb15-35"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-35" tabindex="-1"></a><span class="co"># add the wwtp metadata</span></span>
+<span id="cb15-36"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-36" tabindex="-1"></a>onondaga_meta <span class="ot">&lt;-</span> wwtp_onondaga_sf <span class="sc">%&gt;%</span></span>
+<span id="cb15-37"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-37" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() </span>
+<span id="cb15-38"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-38" tabindex="-1"></a></span>
+<span id="cb15-39"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-39" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> dissolved <span class="sc">%&gt;%</span></span>
+<span id="cb15-40"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-40" tabindex="-1"></a>  <span class="fu">left_join</span>(onondaga_meta, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;wwtp_row_id&quot;</span>))</span>
+<span id="cb15-41"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-41" tabindex="-1"></a></span>
+<span id="cb15-42"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-42" tabindex="-1"></a><span class="co"># plot to see how they look</span></span>
+<span id="cb15-43"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-43" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb15-44"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-44" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb15-45"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-45" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved, <span class="at">color =</span> <span class="st">&quot;darkblue&quot;</span>, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="st">`</span><span class="at">Facility.Name</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb15-46"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-46" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>)<span class="sc">+</span></span>
+<span id="cb15-47"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-47" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb15-48"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb15-48" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/village%20blocks-1.png" alt="" width="672" /></p>
 </div>
 </div>
 <div id="appendix-3---polygons-from-point-data" class="section level3 hasAnchor" number="3.5.3">
 <h3><span class="header-section-number">3.5.3</span> Appendix 3 - Polygons from point data<a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#appendix-3---polygons-from-point-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Some datasets may be made up of points like manhole locations or points for each parcel connected to a sewer system. You can create a polygon from point data using the following code.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># change parcels to centroids</span></span>
-<span id="cb16-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-2" aria-hidden="true" tabindex="-1"></a>onondaga_sewer_centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(onondaga_sewer)</span>
-<span id="cb16-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># find the nearest wwtp for each sewer parcel</span></span>
-<span id="cb16-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-5" aria-hidden="true" tabindex="-1"></a>near <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(onondaga_sewer_centroids, wwtp_onondaga_sf)</span>
-<span id="cb16-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># using the row numbers for the nearest feature, we can begin to create some </span></span>
-<span id="cb16-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># sewershed boundaries</span></span>
-<span id="cb16-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-9" aria-hidden="true" tabindex="-1"></a>wwtp_onondaga_sf<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(wwtp_onondaga_sf))</span>
-<span id="cb16-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-10" aria-hidden="true" tabindex="-1"></a>onondaga_sewer_centroids<span class="sc">$</span>parcel_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(onondaga_sewer_centroids))</span>
-<span id="cb16-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># combine the list of near wwtps with the Onondaga sewer dataset</span></span>
-<span id="cb16-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-13" aria-hidden="true" tabindex="-1"></a>near_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(onondaga_sewer_centroids, near))</span>
-<span id="cb16-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># rename near value to be the wwtp_row_id</span></span>
-<span id="cb16-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-16" aria-hidden="true" tabindex="-1"></a>near_df<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> near_df<span class="sc">$</span>near</span>
-<span id="cb16-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the points</span></span>
-<span id="cb16-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb16-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb16-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_as_sf</span>(near_df), <span class="at">alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
-<span id="cb16-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/polygons%20from%20point%20data-1.png" width="672" /></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a buffer around each point</span></span>
-<span id="cb17-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-2" aria-hidden="true" tabindex="-1"></a>near_df <span class="ot">&lt;-</span> near_df <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb17-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">100</span>) <span class="co"># you might need to play with this buffer distance</span></span>
-<span id="cb17-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># group by wwtp_row_id and merge into polygons</span></span>
-<span id="cb17-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># then dissolve</span></span>
-<span id="cb17-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-8" aria-hidden="true" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> near_df <span class="sc">%&gt;%</span> </span>
-<span id="cb17-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wwtp_row_id) <span class="sc">%&gt;%</span></span>
-<span id="cb17-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb17-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb17-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
-<span id="cb17-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
-<span id="cb17-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
-<span id="cb17-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">as.factor</span>(wwtp_row_id)))<span class="sc">+</span></span>
-<span id="cb17-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="fu">aes</span>(<span class="at">size =</span> <span class="st">`</span><span class="at">Average.Design.Hydraulic.Flow</span><span class="st">`</span>))<span class="sc">+</span></span>
-<span id="cb17-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
-<span id="cb17-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/polygons%20from%20points%20continued-1.png" width="672" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-1" tabindex="-1"></a><span class="co"># change parcels to centroids</span></span>
+<span id="cb16-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-2" tabindex="-1"></a>onondaga_sewer_centroids <span class="ot">&lt;-</span> <span class="fu">st_centroid</span>(onondaga_sewer)</span>
+<span id="cb16-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-4" tabindex="-1"></a><span class="co"># find the nearest wwtp for each sewer parcel</span></span>
+<span id="cb16-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-5" tabindex="-1"></a>near <span class="ot">&lt;-</span> <span class="fu">st_nearest_feature</span>(onondaga_sewer_centroids, wwtp_onondaga_sf)</span>
+<span id="cb16-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-6" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-7" tabindex="-1"></a><span class="co"># using the row numbers for the nearest feature, we can begin to create some </span></span>
+<span id="cb16-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-8" tabindex="-1"></a><span class="co"># sewershed boundaries</span></span>
+<span id="cb16-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-9" tabindex="-1"></a>wwtp_onondaga_sf<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(wwtp_onondaga_sf))</span>
+<span id="cb16-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-10" tabindex="-1"></a>onondaga_sewer_centroids<span class="sc">$</span>parcel_row_id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(onondaga_sewer_centroids))</span>
+<span id="cb16-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-11" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-12" tabindex="-1"></a><span class="co"># combine the list of near wwtps with the Onondaga sewer dataset</span></span>
+<span id="cb16-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-13" tabindex="-1"></a>near_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">cbind</span>(onondaga_sewer_centroids, near))</span>
+<span id="cb16-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-14" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-15" tabindex="-1"></a><span class="co"># rename near value to be the wwtp_row_id</span></span>
+<span id="cb16-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-16" tabindex="-1"></a>near_df<span class="sc">$</span>wwtp_row_id <span class="ot">&lt;-</span> near_df<span class="sc">$</span>near</span>
+<span id="cb16-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-17" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-18" tabindex="-1"></a><span class="co"># plot the points</span></span>
+<span id="cb16-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-19" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb16-20"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-20" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb16-21"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-21" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> <span class="fu">st_as_sf</span>(near_df), <span class="at">alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb16-22"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb16-22" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/polygons%20from%20point%20data-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-1" tabindex="-1"></a><span class="co"># make a buffer around each point</span></span>
+<span id="cb17-2"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-2" tabindex="-1"></a>near_df <span class="ot">&lt;-</span> near_df <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-3" tabindex="-1"></a>  <span class="fu">st_as_sf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-4" tabindex="-1"></a>  <span class="fu">st_buffer</span>(<span class="at">dist =</span> <span class="dv">100</span>) <span class="co"># you might need to play with this buffer distance</span></span>
+<span id="cb17-5"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-6" tabindex="-1"></a><span class="co"># group by wwtp_row_id and merge into polygons</span></span>
+<span id="cb17-7"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-7" tabindex="-1"></a><span class="co"># then dissolve</span></span>
+<span id="cb17-8"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-8" tabindex="-1"></a>dissolved <span class="ot">&lt;-</span> near_df <span class="sc">%&gt;%</span> </span>
+<span id="cb17-9"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-9" tabindex="-1"></a>  <span class="fu">group_by</span>(wwtp_row_id) <span class="sc">%&gt;%</span></span>
+<span id="cb17-10"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-10" tabindex="-1"></a>  <span class="fu">summarise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb17-11"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-11" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb17-12"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-12" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-13" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb17-14"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-14" tabindex="-1"></a><span class="fu">ggplot</span>()<span class="sc">+</span></span>
+<span id="cb17-15"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-15" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> onondaga_border, <span class="at">fill =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb17-16"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-16" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> dissolved, <span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">as.factor</span>(wwtp_row_id)))<span class="sc">+</span></span>
+<span id="cb17-17"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-17" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> wwtp_onondaga_sf, <span class="fu">aes</span>(<span class="at">size =</span> <span class="st">`</span><span class="at">Average.Design.Hydraulic.Flow</span><span class="st">`</span>))<span class="sc">+</span></span>
+<span id="cb17-18"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-18" tabindex="-1"></a>  <span class="fu">theme_void</span>()<span class="sc">+</span></span>
+<span id="cb17-19"><a href="maps-and-spatial-data-for-communities-connected-to-public-sewer.html#cb17-19" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/polygons%20from%20points%20continued-1.png" alt="" width="672" /></p>
 <p>You can then fill the holes like we did before or do some additional cleaning in ArcGIS or from the special districts tables.</p>
 
 </div>
@@ -798,42 +799,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-how-to-map-sewersheds.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["_main.pdf", "_main.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-how-to-map-sewersheds.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>

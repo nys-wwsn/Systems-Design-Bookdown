@@ -1,5 +1,10 @@
 fig:fig1
 fig:fig2
+fig:fig51
+eq:ncrep
+eq:edsse
+fig:fig52
+fig:fig53
 introduction
 contact-information
 how-new-york-state-mapped-their-sewersheds
@@ -43,6 +48,13 @@ load-data-into-r
 intersect-zip-code-tas-with-sewersheds
 training-review-2
 system-design-for-outbreak-detection
+where-does-wastewater-surveillance-fit-into-the-surveillance-landscape
+estimating-sensitivity-of-detection
+equity-of-outbreak-detection
+example-polio-outbreak-in-nys
+considerations-for-designing-wastewater-surveillance-systems-for-outbreak-detection
+conclusion-and-training-review
+references
 resources-and-links
 training-videos
 data
