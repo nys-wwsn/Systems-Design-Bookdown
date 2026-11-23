@@ -10,9 +10,7 @@ bookdown::gitbook:
     download: ["pdf", "epub"]
 bookdown::pdf_book:
   extra_dependencies: ["float"]
-  includes:
-    in_header: preamble.tex
   latex_engine: xelatex
-  citation_package: natbib
+  citation_package: default
   keep_tex: yes
 bookdown::epub_book: default
