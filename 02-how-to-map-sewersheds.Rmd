@@ -124,14 +124,14 @@ library(tigris)
 
 # Onondaga county tax parcels
 onondaga_parcels <- 
-  st_read("E:/Data/ny_parcels/onondaga_2020_Tax_Parcels_SHP_2106/onondaga_2020_Tax_Parcels_SHP_2106.shp")
+  st_read("data/onondaga_2020_Tax_Parcels_SHP_2106/onondaga_2020_Tax_Parcels_SHP_2106.shp")
 
 # NY WWTPS
 ny_wwtps <- read.csv("data/Wastewater_Treatment_Plants_20250121.csv")
 
 # NY county boundaries - for assistance with mapping
 ny_counties <- 
-  st_read("E:/Dropbox/CEMI/Wastewater/Data/NYS_Civil_Boundaries.shp/Counties_Shoreline.shp")
+  st_read("data/Counties_Shoreline/Counties_Shoreline.shp")
 
 # Filter for Onondaga county
 onondaga_border <- ny_counties %>%
@@ -139,7 +139,7 @@ onondaga_border <- ny_counties %>%
 
 # nys town, city, village boundaries
 towns <- 
-  st_read("E:/Dropbox/CEMI/Wastewater/Data/NYS_Civil_Boundaries.shp/Cities_Towns.shp")
+  st_read("data/NY Town Boundaries/Cities_Towns.shp")
 
 # Onondaga towns
 onondaga_towns <- towns %>%
@@ -147,7 +147,7 @@ onondaga_towns <- towns %>%
 
 # villages
 villages <- 
-  st_read("E:/Dropbox/CEMI/Wastewater/Data/NYS_Civil_Boundaries.shp/Villages.shp")
+  st_read("data/NY Village Boundaries/Villages.shp")
 
 # Onondaga villages
 onondaga_villages <- villages %>%
@@ -446,13 +446,13 @@ An advantage to including the entire block that intersects with a sewershed parc
 
 #### Download censusblocks for NYS 
 
-```{r  block pc load, message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, results = 'hide', include = FALSE, eval = TRUE}
-b <- 
-  st_read("E:\\Data\\Census\\County_blocks\\Onondaga\\tl_2010_36067_tabblock10.shp")
+```{r  block pc load, message = FALSE, warning = FALSE, error = FALSE, echo = FALSE, results = 'hide', include = FALSE, eval = FALSE}
+# b <- 
+#   st_read("E:\\Data\\Census\\County_blocks\\Onondaga\\tl_2010_36067_tabblock10.shp")
 
 ```
 
-```{r  block download, message = FALSE, warning = FALSE, error = FALSE, echo = TRUE, results = 'hide', eval = FALSE}
+```{r  block download, message = FALSE, warning = FALSE, error = FALSE, echo = TRUE, results = 'hide', eval = TRUE}
 b <- tigris::blocks(state = "New York", county = "Onondaga", year = 2020)
 
 ```

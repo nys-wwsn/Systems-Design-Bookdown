@@ -12,20 +12,14 @@ knitr::include_graphics("Images/Figure 1.png")
 
 Probability of detecting a disease is dependent on the sensitivity of detection for that specific disease (Equation 6.1) and also on the coverage of the population by the surveillance system (Equation 6.2) (Cameron et al. 2020).
 
-\@ref(eq:ncrep)
-
 \begin{equation}
-\ Probability(at \ least \ one \ detected) = 1 – (1 – Sensitivity \ of \ detection)^n
-    (\#eq:ncrep)
-
+\text{Probability(at least one detected)} = 1 - (1 - \text{Sensitivity of detection})^n
+(\#eq:ncrep)
 \end{equation}
 
-\@ref(eq:ncrep)
-
 \begin{equation}
-\ EDSSe = population \ coverage * temporal \ coverage * Sensitivity \ of \ detection
-    (\#eq:ncrep)
-
+\text{EDSSe} = \text{population coverage} \times \text{temporal coverage} \times \text{Sensitivity of detection}
+(\#eq:edsse)
 \end{equation}
 
 It is important to know that wastewater surveillance has limitations and will not detect the spillover event (e.g., the introduction of a new pathogen from one population to another). As an outbreak spreads, the sensitivity of detecting the outbreak increases exponentially as infection counts increase. Wastewater surveillance has a high population coverage within treatment plant catchment areas because urban areas are more likely to be served by public sewer systems. Frequent wastewater surveillance (e.g., once per week) has high temporal coverage. Also, remember, sensitivity will always be pathogen specific. 
