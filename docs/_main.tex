@@ -1,20 +1,24 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[
 ]{book}
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -32,7 +36,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -44,13 +47,13 @@
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
 \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
 \newcommand{\BuiltInTok}[1]{#1}
 \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
 \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
@@ -58,7 +61,7 @@
 \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
 \newcommand{\ExtensionTok}[1]{#1}
 \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
 \newcommand{\ImportTok}[1]{#1}
 \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
@@ -67,7 +70,7 @@
 \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
 \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
 \newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
 \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
@@ -85,39 +88,35 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-\usepackage{booktabs}
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\usepackage[]{natbib}
-\bibliographystyle{plainnat}
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{float}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={Systems Design for Wastewater Surveillance: Information Guide and Training Resources},
-  pdfauthor={Dustin T. Hill, Shaz Damani, and David A. Larsen},
+  pdfauthor={Dustin T. Hill, Shaz Damani, David A. Larsen, and contributions from the New York State Wastewater Surveillance Program},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
 \title{Systems Design for Wastewater Surveillance: Information Guide and Training Resources}
-\author{Dustin T. Hill, Shaz Damani, and David A. Larsen}
-\date{2025-04-22}
+\author{Dustin T. Hill, Shaz Damani, David A. Larsen, and contributions from the New York State Wastewater Surveillance Program}
+\date{2026-11-23}
 
 \begin{document}
 \maketitle
@@ -126,8 +125,9 @@
 \setcounter{tocdepth}{1}
 \tableofcontents
 }
-\hypertarget{introduction}{%
-\chapter{Introduction}\label{introduction}}
+\chapter{Introduction}\label{introduction}
+
+\textbf{Authors:} \emph{Dustin T. Hill, Shaz Damani, and David A. Larsen with contributions from the New York State Wastewater Surveillance Network.}
 
 Welcome to this comprehensive guide designed to enhance and strengthen your wastewater surveillance activities. This document serves as a valuable resource to complement the monthly workshops hosted by the New York Center of Excellence (NY CoE) during our regional calls. Within these pages, you will find essential information, resources, and practical tips to support your efforts in wastewater monitoring.
 
@@ -155,20 +155,17 @@ In Part 4, we explore how to add other spatial data to WBE projects including zi
 
 In this last part of our Systems Design review, we share ways to understand an outbreak using wastewater surveillance data. Examples for some pathogens are provided as case studies.
 
-This info guide will also include a comprehensive list of videos, links to data, and other resources in the \protect\hyperlink{07-resources-and-links}{Resources and Links section}.
+This info guide will also include a comprehensive list of videos, links to data, and other resources in the \hyperref[07-resources-and-links]{Resources and Links section}.
 
-\hypertarget{contact-information}{%
-\section{Contact information}\label{contact-information}}
+\section{Contact information}\label{contact-information}
 
 New York State Center of Excellence Website: \url{https://nywastewatcher.io/nwsscoe}.
 
-General concerns email: \textbf{\href{mailto:COVID.WasteWater@health.ny.gov}{\nolinkurl{COVID.WasteWater@health.ny.gov}}}.
+General concerns email: \href{mailto:WasteWaterNetwork@health.ny.gov}{\textbf{WasteWaterNetwork@health.ny.gov}}.
 
-\hypertarget{how-new-york-state-mapped-their-sewersheds}{%
-\chapter{How New York State mapped their sewersheds}\label{how-new-york-state-mapped-their-sewersheds}}
+\chapter{How New York State mapped their sewersheds}\label{how-new-york-state-mapped-their-sewersheds}
 
-\hypertarget{background}{%
-\section{Background}\label{background}}
+\section{Background}\label{background}
 
 In 2020, as part of the emergency response to the COVID-19 pandemic, a pilot wastewater surveillance project was initiated by NYS Department of Health (NYS DOH) and Syracuse University. As part of this pilot, maps were collected for participating wastewater treatment plants (WWTPs). These maps were the initial database of NYS sewersheds and the process used to create them formed the template for mapping all of the state's sewersheds for each wastewater treatment plant (\ref{fig:fig1}).
 
@@ -194,8 +191,7 @@ In 2021, as part of the scale-up of wastewater surveillance in New York, NYS DOH
 
 In this section, you will learn about how NYS mapped their sewersheds and the open-source methods that were used. This overview will be referenced in future sections and the methods can be applied to other jurisdictions looking to produce maps of sewershed boundaries to aid wastewater surveillance for epidemiology.
 
-\hypertarget{goals-for-this-section}{%
-\section{Goals for this section}\label{goals-for-this-section}}
+\section{Goals for this section}\label{goals-for-this-section}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -207,8 +203,7 @@ In this section, you will learn about how NYS mapped their sewersheds and the op
   Learn how NYS is using sewershed boundaries to enhance the utility of wastewater epidemiology.
 \end{enumerate}
 
-\hypertarget{resources}{%
-\section{Resources}\label{resources}}
+\section{Resources}\label{resources}
 
 \begin{itemize}
 \item
@@ -227,11 +222,9 @@ In this section, you will learn about how NYS mapped their sewersheds and the op
   \href{https://r-spatial.org/}{R spatial tools}. R is an open-source program, and most mapping projects and analyses can be completed using the software.
 \end{itemize}
 
-\hypertarget{maps-and-spatial-data-for-communities-connected-to-public-sewer}{%
-\chapter{Maps and spatial data for communities connected to public sewer}\label{maps-and-spatial-data-for-communities-connected-to-public-sewer}}
+\chapter{Maps and spatial data for communities connected to public sewer}\label{maps-and-spatial-data-for-communities-connected-to-public-sewer}
 
-\hypertarget{overview}{%
-\section{Overview}\label{overview}}
+\section{Overview}\label{overview}
 
 In this section, we will review existing maps for community sewer and how to go about making them. While there is a plethora of digital spatial data on many topics, there is not yet a comprehensive national database for sewers in the United States (US). Prior to the NYS DOH sewershed mapping project, there was also not a comprehensive map of NY's sewer systems. There are, however, some public databases for locations of publicly owned treatment works including permitted wastewater treatment plants. The US Environmental Protection Agency (EPA) maintains records on permitted WWTPs and so do most state environmental offices. Using these public records, we know where the municipal WWTPs are and this provides a starting point for mapping a state's sewer systems. The next step involves collecting data from other sources like:
 
@@ -253,8 +246,7 @@ In this section, we will review existing maps for community sewer and how to go 
 
 Many of these records will be housed in local GIS, tax, planning, or municipal offices. Some will be public, and others might require permission to access or data use agreements. The final product of mapping a state's sewer systems does not result in any identifiable data being produced, and if you explain to local officials the goals of the project and what the final product will look like, data sharing should not be an issue. Work with your local partners to ensure that their questions are answered, and any concerns are addressed.
 
-\hypertarget{goals-for-this-section-1}{%
-\section{Goals for this section}\label{goals-for-this-section-1}}
+\section{Goals for this section}\label{goals-for-this-section-1}
 
 In this section, you will:
 
@@ -273,13 +265,12 @@ In this section, you will:
   Gather parcel property data for your jurisdiction
 \end{enumerate}
 
-\hypertarget{resources-1}{%
-\section{Resources}\label{resources-1}}
+\section{Resources}\label{resources-1}
 
 \begin{itemize}
 \tightlist
 \item
-  \href{https://www.arcgis.com/apps/mapviewer/index.html?url=https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer\&source=sd}{National parcel data viewer} / \href{https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer}{data access portal}. This is a data portal that lets you explore each state in the US and whether they have tax parcel data. Some links bring you to county or state websites and from there you can view and download the data.
+  \href{https://www.arcgis.com/apps/mapviewer/index.html?url=https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer&source=sd}{National parcel data viewer} / \href{https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer}{data access portal}. This is a data portal that lets you explore each state in the US and whether they have tax parcel data. Some links bring you to county or state websites and from there you can view and download the data.
 \end{itemize}
 
 ArcGIS tutorials
@@ -312,8 +303,7 @@ Q GIS tutorials
   \href{https://www.youtube.com/watch?v=bf1w1AeaHsw}{Save your data in Q}
 \end{itemize}
 
-\hypertarget{training-exercise}{%
-\section{Training exercise}\label{training-exercise}}
+\section{Training exercise}\label{training-exercise}
 
 This training will show how to use publicly available tax parcel data to draw municipal sewershed boundaries. You will need to download R to run this script on your machine.
 
@@ -339,8 +329,7 @@ We will be able to use these data to:
 
 A note before proceeding: Parcel data are very large and your R session might slow down during some processing steps.
 
-\hypertarget{data-you-will-need-for-this-tutorial}{%
-\subsubsection{Data you will need for this tutorial}\label{data-you-will-need-for-this-tutorial}}
+\subsubsection{Data you will need for this tutorial}\label{data-you-will-need-for-this-tutorial}
 
 You will need to download the following data files for this tutorial (they are stored with this tutorial).
 
@@ -357,8 +346,7 @@ You will need to download the following data files for this tutorial (they are s
   NY village boundaries
 \end{itemize}
 
-\hypertarget{step-1---install-and-load-the-necessary-r-packages}{%
-\subsection{Step 1 - Install and load the necessary R packages}\label{step-1---install-and-load-the-necessary-r-packages}}
+\subsection{Step 1 - Install and load the necessary R packages}\label{step-1---install-and-load-the-necessary-r-packages}
 
 Install packages to your computer.
 
@@ -386,21 +374,20 @@ Load packages into your current R session.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{step-2---load-the-data-into-your-r-session}{%
-\subsection{Step 2 - Load the data into your R session}\label{step-2---load-the-data-into-your-r-session}}
+\subsection{Step 2 - Load the data into your R session}\label{step-2---load-the-data-into-your-r-session}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# Onondaga county tax parcels}
 \NormalTok{onondaga\_parcels }\OtherTok{\textless{}{-}} 
-  \FunctionTok{st\_read}\NormalTok{(}\StringTok{"E:/Data/ny\_parcels/onondaga\_2020\_Tax\_Parcels\_SHP\_2106/onondaga\_2020\_Tax\_Parcels\_SHP\_2106.shp"}\NormalTok{)}
+  \FunctionTok{st\_read}\NormalTok{(}\StringTok{"data/onondaga\_2020\_Tax\_Parcels\_SHP\_2106/onondaga\_2020\_Tax\_Parcels\_SHP\_2106.shp"}\NormalTok{)}
 
 \CommentTok{\# NY WWTPS}
 \NormalTok{ny\_wwtps }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/Wastewater\_Treatment\_Plants\_20250121.csv"}\NormalTok{)}
 
 \CommentTok{\# NY county boundaries {-} for assistance with mapping}
 \NormalTok{ny\_counties }\OtherTok{\textless{}{-}} 
-  \FunctionTok{st\_read}\NormalTok{(}\StringTok{"E:/Dropbox/CEMI/Wastewater/Data/NYS\_Civil\_Boundaries.shp/Counties\_Shoreline.shp"}\NormalTok{)}
+  \FunctionTok{st\_read}\NormalTok{(}\StringTok{"data/Counties\_Shoreline/Counties\_Shoreline.shp"}\NormalTok{)}
 
 \CommentTok{\# Filter for Onondaga county}
 \NormalTok{onondaga\_border }\OtherTok{\textless{}{-}}\NormalTok{ ny\_counties }\SpecialCharTok{\%\textgreater{}\%}
@@ -408,7 +395,7 @@ Load packages into your current R session.
 
 \CommentTok{\# nys town, city, village boundaries}
 \NormalTok{towns }\OtherTok{\textless{}{-}} 
-  \FunctionTok{st\_read}\NormalTok{(}\StringTok{"E:/Dropbox/CEMI/Wastewater/Data/NYS\_Civil\_Boundaries.shp/Cities\_Towns.shp"}\NormalTok{)}
+  \FunctionTok{st\_read}\NormalTok{(}\StringTok{"data/NY Town Boundaries/Cities\_Towns.shp"}\NormalTok{)}
 
 \CommentTok{\# Onondaga towns}
 \NormalTok{onondaga\_towns }\OtherTok{\textless{}{-}}\NormalTok{ towns }\SpecialCharTok{\%\textgreater{}\%}
@@ -416,7 +403,7 @@ Load packages into your current R session.
 
 \CommentTok{\# villages}
 \NormalTok{villages }\OtherTok{\textless{}{-}} 
-  \FunctionTok{st\_read}\NormalTok{(}\StringTok{"E:/Dropbox/CEMI/Wastewater/Data/NYS\_Civil\_Boundaries.shp/Villages.shp"}\NormalTok{)}
+  \FunctionTok{st\_read}\NormalTok{(}\StringTok{"data/NY Village Boundaries/Villages.shp"}\NormalTok{)}
 
 \CommentTok{\# Onondaga villages}
 \NormalTok{onondaga\_villages }\OtherTok{\textless{}{-}}\NormalTok{ villages }\SpecialCharTok{\%\textgreater{}\%}
@@ -424,8 +411,7 @@ Load packages into your current R session.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{step-3---filter-the-wwtp-data-for-municipal-sites-only}{%
-\subsection{Step 3 - Filter the WWTP data for municipal sites only}\label{step-3---filter-the-wwtp-data-for-municipal-sites-only}}
+\subsection{Step 3 - Filter the WWTP data for municipal sites only}\label{step-3---filter-the-wwtp-data-for-municipal-sites-only}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -455,12 +441,11 @@ Load packages into your current R session.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/wwtp data prep-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/wwtp data prep-1.pdf}}
 
 We can see that many WWTPs fall within village or town boundaries. This should help us differentiate the plants that serve different communities. We can also ask the municipalities and local WWTP operators to learn more, but for now, let us assume that we are not sure.
 
-\hypertarget{step-4---filter-the-parcel-data-for-public-sewer-only}{%
-\subsection{Step 4 - Filter the parcel data for public sewer only}\label{step-4---filter-the-parcel-data-for-public-sewer-only}}
+\subsection{Step 4 - Filter the parcel data for public sewer only}\label{step-4---filter-the-parcel-data-for-public-sewer-only}
 
 There are two fields in the data for sewer. One is the \texttt{SEWER\_TYPE} and the other is \texttt{SEWER\_DESC}. \texttt{SEWER\_DESC} includes three categories: Comm/public, None, or Private. We will filter for the Comm/public sewer parcels only.
 
@@ -495,10 +480,9 @@ There are two fields in the data for sewer. One is the \texttt{SEWER\_TYPE} and 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/parcel data prep-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/parcel data prep-1.pdf}}
 
-\hypertarget{step-5---link-sewer-parcels-to-towns-and-villages}{%
-\subsection{Step 5 - Link sewer parcels to towns and villages}\label{step-5---link-sewer-parcels-to-towns-and-villages}}
+\subsection{Step 5 - Link sewer parcels to towns and villages}\label{step-5---link-sewer-parcels-to-towns-and-villages}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -556,14 +540,13 @@ There are two fields in the data for sewer. One is the \texttt{SEWER\_TYPE} and 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/towns -1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/towns -1.pdf}}
 
 We now have two layers, parcels in each town or city that are on sewer and parcels in each village that are on sewer. The next step can be to take these data to a local county planning office and identify which town sewer systems go to each plant, then group the polygons to create the sewershed for that plant.
 
 Alternatively, let's do a little more work to make that next step easier. You will notice there are a lot of wayward parcels (parcels that are not near any WWTP or town and look like small ``islands''). They likely flow into nearby systems a little ways off. Also, there are a lot of holes in the parcel groups. We will fill in those holes and then intersect the town and village sewer parcels with census blocks to get more robust geometries for the sewersheds. These steps will make using these data for epidemiology a little easier. If you want to keep the more skeletal boundaries for sewers, you can save that data for future reference.
 
-\hypertarget{clean-up-sewershed-boundaries}{%
-\subsubsection{Clean up sewershed boundaries}\label{clean-up-sewershed-boundaries}}
+\subsubsection{Clean up sewershed boundaries}\label{clean-up-sewershed-boundaries}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -587,10 +570,9 @@ Alternatively, let's do a little more work to make that next step easier. You wi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/remove holes-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/remove holes-1.pdf}}
 
-\hypertarget{step-6---assign-polygons-to-wwtps}{%
-\subsection{Step 6 - Assign polygons to WWTPs}\label{step-6---assign-polygons-to-wwtps}}
+\subsection{Step 6 - Assign polygons to WWTPs}\label{step-6---assign-polygons-to-wwtps}
 
 We want to now bring our village and town parcel polygons together into one shapefile layer and link the polygons to the nearest WWTP.
 
@@ -654,7 +636,7 @@ We want to now bring our village and town parcel polygons together into one shap
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/link parcel polys to points-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/link parcel polys to points-1.pdf}}
 
 We can save these R objects as shapefiles.
 
@@ -671,27 +653,23 @@ We can save these R objects as shapefiles.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{training-review}{%
-\section{Training review}\label{training-review}}
+\section{Training review}\label{training-review}
 
 We have used publicly available tax parcel data to estimate sewersheds for municipal WWTPs in Onondaga County, NY. The boundaries are not exact nor are they complete. You will need to work with local planning offices to improve the boundary estimates and finalize assigning each polygon to the WWTP that they flow into.
 
 Some additional data you might gather to create the final boundaries include municipal tax roles, municipal sewer infrastructure maps or GIS data, or your tax parcel data might have what in NY is called a ``Special Districts'' table.
 
-\hypertarget{appendix-1---special-districts}{%
-\subsection{Appendix 1 - Special districts}\label{appendix-1---special-districts}}
+\subsection{Appendix 1 - Special districts}\label{appendix-1---special-districts}
 
 The Special Districts table is a dataset that includes more detail on each tax parcel like what water and fire district the parcel is part of. These tables are not always publicly available and you might need permission to work with these data. If you can obtain these data, you can merge the special districts to the parcel data using the municipal tax parcel ID, and then group and filter by special district names for sewer districts. Not all special district table will have sewer data, but many will.
 
-\hypertarget{appendix-2---create-polygons-using-census-blocks}{%
-\subsection{Appendix 2 - create polygons using census blocks}\label{appendix-2---create-polygons-using-census-blocks}}
+\subsection{Appendix 2 - create polygons using census blocks}\label{appendix-2---create-polygons-using-census-blocks}
 
 We can also draw sewershed boundaries using census blocks. By intersecting census blocks with sewer parcels, we can map the parts of each town and village on sewer.
 
 An advantage to including the entire block that intersects with a sewershed parcel is that it will make merging these data with census population data easier in the future. Obtaining accurate population estimates for the number of people on sewer is an important part of wastewater-based epidemiology.
 
-\hypertarget{download-censusblocks-for-nys}{%
-\subsubsection{Download censusblocks for NYS}\label{download-censusblocks-for-nys}}
+\subsubsection{Download censusblocks for NYS}\label{download-censusblocks-for-nys}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -815,7 +793,7 @@ So now we have two sets of data to bring to the local planning offices or WWTP o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/final maps-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/final maps-1.pdf}}
 
 We can also link these data to the nearest WWTP like we did for parcels.
 
@@ -872,10 +850,9 @@ We can also link these data to the nearest WWTP like we did for parcels.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/village blocks-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/village blocks-1.pdf}}
 
-\hypertarget{appendix-3---polygons-from-point-data}{%
-\subsection{Appendix 3 - Polygons from point data}\label{appendix-3---polygons-from-point-data}}
+\subsection{Appendix 3 - Polygons from point data}\label{appendix-3---polygons-from-point-data}
 
 Some datasets may be made up of points like manhole locations or points for each parcel connected to a sewer system. You can create a polygon from point data using the following code.
 
@@ -906,7 +883,7 @@ Some datasets may be made up of points like manhole locations or points for each
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/polygons from point data-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/polygons from point data-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -932,20 +909,17 @@ Some datasets may be made up of points like manhole locations or points for each
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/polygons from points continued-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/polygons from points continued-1.pdf}}
 
 You can then fill the holes like we did before or do some additional cleaning in ArcGIS or from the special districts tables.
 
-\hypertarget{adding-census-data-to-wastewater-based-epidemiology}{%
-\chapter{Adding Census Data to Wastewater-Based Epidemiology}\label{adding-census-data-to-wastewater-based-epidemiology}}
+\chapter{Adding Census Data to Wastewater-Based Epidemiology}\label{adding-census-data-to-wastewater-based-epidemiology}
 
-\hypertarget{overview-1}{%
-\section{Overview}\label{overview-1}}
+\section{Overview}\label{overview-1}
 
 Wastewater-based epidemiology (WBE) data can be enhanced by adding other public data sources. One source is United States Census (US Census) data, which can add population demographic variables to WBE data, This vignette demonstrates how to take a spatial WBE dataset of sewershed boundaries in New York State (NYS) and add US Census data using spatial intersection methods.
 
-\hypertarget{install-and-load-r-packages}{%
-\subsection{Install and Load R packages}\label{install-and-load-r-packages}}
+\subsection{Install and Load R packages}\label{install-and-load-r-packages}
 
 Install packages to your computer.
 
@@ -973,8 +947,7 @@ Load packages into your R session.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{load-wastewater-data}{%
-\section{Load wastewater data}\label{load-wastewater-data}}
+\section{Load wastewater data}\label{load-wastewater-data}
 
 Sewershed boundaries for NYS can be downloaded from \href{https://www.arcgis.com/home/item.html?id=e795007660ae4a1fae5f86b40d065b3a}{ArcGIS online}.
 
@@ -1000,10 +973,9 @@ Map your data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/plot sewersheds-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/plot sewersheds-1.pdf}}
 
-\hypertarget{load-us-census-data-method---tidy-census}{%
-\section{Load US Census data method - Tidy Census}\label{load-us-census-data-method---tidy-census}}
+\section{Load US Census data method - Tidy Census}\label{load-us-census-data-method---tidy-census}
 
 US Census data can be added to your R session using the packages \texttt{tidycensus} and \texttt{tigris}. Both packages connect to the US Census API for downloading tabular data or spatial boundaries. You will need an API key to access the data. For information on obtaining a key, visit the \texttt{tidycensus} \href{https://walker-data.com/tidycensus/reference/census_api_key.html}{website}.
 
@@ -1033,15 +1005,15 @@ To download the data, we need to know the name of the variables we want and for 
 \end{Shaded}
 
 \begin{verbatim}
-## # A tibble: 6 x 3
-##   name    label                                             concept         
-##   <chr>   <chr>                                             <chr>           
-## 1 H1_001N " !!Total:"                                       OCCUPANCY STATUS
-## 2 H1_002N " !!Total:!!Occupied"                             OCCUPANCY STATUS
-## 3 H1_003N " !!Total:!!Vacant"                               OCCUPANCY STATUS
-## 4 P1_001N " !!Total:"                                       RACE            
-## 5 P1_002N " !!Total:!!Population of one race:"              RACE            
-## 6 P1_003N " !!Total:!!Population of one race:!!White alone" RACE
+## # A tibble: 6 x 4
+##   name    label                                             concept     universe
+##   <chr>   <chr>                                             <chr>       <chr>   
+## 1 H1_001N " !!Total:"                                       OCCUPANCY ~ HOUSING~
+## 2 H1_002N " !!Total:!!Occupied"                             OCCUPANCY ~ HOUSING~
+## 3 H1_003N " !!Total:!!Vacant"                               OCCUPANCY ~ HOUSING~
+## 4 P1_001N " !!Total:"                                       RACE        TOTAL_P~
+## 5 P1_002N " !!Total:!!Population of one race:"              RACE        TOTAL_P~
+## 6 P1_003N " !!Total:!!Population of one race:!!White alone" RACE        TOTAL_P~
 \end{verbatim}
 
 This function can load the variable names for many datasets from the US Census and provides the name, the variable description, and the concept group that the variable is part of. Looking at the options, we can see that we want a variable from the \texttt{RACE} concept, specifically, \texttt{P1\_004N}, which is ``!!Total:!!Population of one race:!!Black or African American alone''. For this exercise, we will not be included those that identify as multiple racial or ethnic groups, but you can adapt the methods presented to make those calculations.
@@ -1149,11 +1121,9 @@ Now we have census counts for individuals that self-identify as black or African
 ##   ..- attr(*, "names")= chr [1:14] "STATEFP" "COUNTYFP" "TRACTCE" "GEOID" ...
 \end{verbatim}
 
-\hypertarget{adding-the-census-data-to-the-wastewater-data}{%
-\section{Adding the Census data to the wastewater data}\label{adding-the-census-data-to-the-wastewater-data}}
+\section{Adding the Census data to the wastewater data}\label{adding-the-census-data-to-the-wastewater-data}
 
-\hypertarget{spatial-transformations}{%
-\subsection{Spatial transformations}\label{spatial-transformations}}
+\subsection{Spatial transformations}\label{spatial-transformations}
 
 To add our population data to the sewershed data, we have a few steps to complete. First, both of our datasets need to be the same spatial projection so that they spatially overlap and can be mapped on top of each other.
 
@@ -1170,17 +1140,15 @@ To add our population data to the sewershed data, we have a few steps to complet
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/spatial transformation-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/spatial transformation-1.pdf}}
 
-\hypertarget{spatial-intersection}{%
-\subsection{Spatial intersection}\label{spatial-intersection}}
+\subsection{Spatial intersection}\label{spatial-intersection}
 
 Now we want to spatially intersect the data. This will assign census count data to the sewersheds that overlap. Sewershed boundaries do not follow census tract boundaries closely, so we have two options for assigning the data. First, we can apportion census data to the sewersheds using the proportion of each census tract area that is within the sewershed area. Alternatively, we can assign the total population for all intersecting tracts to the sewershed.
 
 The first method, called areal apportionment, is generally thought to provide more accurate methods for counts of the data, but assumes that people are evenly distributed within the census tract. The second method could be useful if it is not known how evenly the population is distributed and you want to avoid excluding anyone. We will practice both methods.
 
-\hypertarget{areal-apportionment}{%
-\subsubsection{Areal apportionment}\label{areal-apportionment}}
+\subsubsection{Areal apportionment}\label{areal-apportionment}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1311,15 +1279,15 @@ Our spatial data are now combined into one spatial data object.
 ##                                                                             
 ##                                                                             
 ##   Sewershed            SW_ID           sum_black_alone     sum_total_population
-##  Length:674         Length:674         Min.   :     0.00   Min.   :      0.2   
-##  Class :character   Class :character   1st Qu.:     0.74   1st Qu.:     66.6   
-##  Mode  :character   Mode  :character   Median :    12.91   Median :    595.6   
-##                                        Mean   :  4932.45   Mean   :  27214.5   
-##                                        3rd Qu.:   381.10   3rd Qu.:   7356.8   
-##                                        Max.   :307461.96   Max.   :1154606.8   
+##  Length:674         Length:674         Min.   :0.000e+00   Min.   :1.900e-01   
+##  Class :character   Class :character   1st Qu.:7.430e-01   1st Qu.:6.660e+01   
+##  Mode  :character   Mode  :character   Median :1.291e+01   Median :5.956e+02   
+##                                        Mean   :4.932e+03   Mean   :2.721e+04   
+##                                        3rd Qu.:3.811e+02   3rd Qu.:7.357e+03   
+##                                        Max.   :3.075e+05   Max.   :1.155e+06   
 ##                geometry  
-##  GEOMETRYCOLLECTION:  2  
-##  MULTIPOLYGON      :160  
+##  GEOMETRYCOLLECTION:  3  
+##  MULTIPOLYGON      :159  
 ##  POLYGON           :512  
 ##  epsg:4269         :  0  
 ##  +proj=long...     :  0  
@@ -1341,10 +1309,9 @@ We have estimated totals, which can be useful, but often, percentage of the popu
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/areal apportionment 4-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/areal apportionment 4-1.pdf}}
 
-\hypertarget{intersection-assignment}{%
-\subsubsection{Intersection assignment}\label{intersection-assignment}}
+\subsubsection{Intersection assignment}\label{intersection-assignment}
 
 The other method for assigning data is to assign the total population for all census tracts that intersect with a sewershed.
 
@@ -1420,23 +1387,19 @@ Column 1 are the row ids for the sewersheds and column 2 are the row ids for the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/intersects 3-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/intersects 3-1.pdf}}
 
-\hypertarget{training-review-1}{%
-\section{Training review}\label{training-review-1}}
+\section{Training review}\label{training-review-1}
 
 This tutorial demonstrated a process for adding US Census data to WBE spatial data (sewersheds). We calculated the percentage of each sewershed population that identified as black or African American in the 2020 decennial census. These methods can be used to estimate other data available from the US Census. For more information visit the \href{https://www.census.gov/}{US Census website} or \href{https://walker-data.com/tidycensus/}{tidycensus}.
 
-\hypertarget{adding-other-spatial-data-to-wbe}{%
-\chapter{Adding other spatial data to WBE}\label{adding-other-spatial-data-to-wbe}}
+\chapter{Adding other spatial data to WBE}\label{adding-other-spatial-data-to-wbe}
 
-\hypertarget{overview-2}{%
-\section{Overview}\label{overview-2}}
+\section{Overview}\label{overview-2}
 
 In this training, you will link zip code boundaries to sewersheds.
 
-\hypertarget{data-you-will-need-for-this-training}{%
-\subsubsection{Data you will need for this training}\label{data-you-will-need-for-this-training}}
+\subsubsection{Data you will need for this training}\label{data-you-will-need-for-this-training}
 
 \begin{itemize}
 \tightlist
@@ -1444,8 +1407,7 @@ In this training, you will link zip code boundaries to sewersheds.
   New York State Sewershed boundaries
 \end{itemize}
 
-\hypertarget{install-and-load-r-packages-1}{%
-\subsection{Install and Load R packages}\label{install-and-load-r-packages-1}}
+\subsection{Install and Load R packages}\label{install-and-load-r-packages-1}
 
 Install packages
 
@@ -1470,8 +1432,7 @@ Load packages into your current R session.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{load-data-into-r}{%
-\subsection{Load data into R}\label{load-data-into-r}}
+\subsection{Load data into R}\label{load-data-into-r}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1482,8 +1443,7 @@ Load packages into your current R session.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{intersect-zip-code-tas-with-sewersheds}{%
-\subsection{Intersect zip code TAs with sewersheds}\label{intersect-zip-code-tas-with-sewersheds}}
+\subsection{Intersect zip code TAs with sewersheds}\label{intersect-zip-code-tas-with-sewersheds}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1552,7 +1512,7 @@ Load packages into your current R session.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/st_intersects-1.pdf}
+\pandocbounded{\includegraphics[keepaspectratio]{_main_files/_main_files/figure-latex/st_intersects-1.pdf}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1570,30 +1530,121 @@ Load packages into your current R session.
 ## 6    14804       No                <NA>
 \end{verbatim}
 
-\hypertarget{training-review-2}{%
-\section{Training review}\label{training-review-2}}
+\section{Training review}\label{training-review-2}
 
 This data file can then be used to link other zip code level data to sewersheds. If a zip code intersects with a sewershed, then residents of that zip code likely live on or near the sewer system.
 
-\hypertarget{system-design-for-outbreak-detection}{%
-\chapter{System design for outbreak detection}\label{system-design-for-outbreak-detection}}
+\chapter{System design for outbreak detection}\label{system-design-for-outbreak-detection}
 
-Understanding outbreak detection in wastewater surveillance
+In this training, you will learn the key principles of outbreak detection in epidemiology surveillance systems. Examples will be provided to explore the principles. At the end, key concepts will be reviewed.
 
-\hypertarget{resources-and-links}{%
-\chapter{Resources and links}\label{resources-and-links}}
+\section{Where does wastewater surveillance fit into the surveillance landscape?}\label{where-does-wastewater-surveillance-fit-into-the-surveillance-landscape}
 
-\hypertarget{training-videos}{%
-\section{Training Videos}\label{training-videos}}
+Wastewater surveillance is monitoring community level samples from points that include influent from different sources like homes, businesses, and hospitals. Wastewater surveillance is ideal for identifying if a disease is present and if there is an increase in cases (Figure 1).
 
-The videos below are available on our public YouTube channel. They are suggested to view prior to starting the training exercise.
+\begin{figure}[H]
 
-include video library links for each video
+{\centering \includegraphics[width=55.56in]{Images/Figure 1} 
 
-include list of data sources and links
+}
 
-\hypertarget{data}{%
-\section{Data}\label{data}}
+\caption{The domains of disease surveillance. Wastewater surveillance fits into identifying individuals infected and communities (Cameron et al. 2020).}\label{fig:fig51}
+\end{figure}
+
+Probability of detecting a disease is dependent on the sensitivity of detection for that specific disease (Equation 6.1) and also on the coverage of the population by the surveillance system (Equation 6.2) (Cameron et al.~2020).
+
+\begin{equation}
+\text{Probability(at least one detected)} = 1 - (1 - \text{Sensitivity of detection})^n
+\label{eq:ncrep}
+\end{equation}
+
+\begin{equation}
+\text{EDSSe} = \text{population coverage} \times \text{temporal coverage} \times \text{Sensitivity of detection}
+\label{eq:edsse}
+\end{equation}
+
+It is important to know that wastewater surveillance has limitations and will not detect the spillover event (e.g., the introduction of a new pathogen from one population to another). As an outbreak spreads, the sensitivity of detecting the outbreak increases exponentially as infection counts increase. Wastewater surveillance has a high population coverage within treatment plant catchment areas because urban areas are more likely to be served by public sewer systems. Frequent wastewater surveillance (e.g., once per week) has high temporal coverage. Also, remember, sensitivity will always be pathogen specific.
+
+\section{Estimating sensitivity of detection}\label{estimating-sensitivity-of-detection}
+
+There are two ways to estimate the sensitivity of detection of a pathogen in wastewater. One is comparing detections to estimates of prevalence (See Larsen et al.~for more details).
+The second is a dynamic shedding, decay, and transport model. This is dependent on being able to measure or estimate the shedding of a pathogen from an infected person and is hard to measure for rare pathogens (e.g., measles or polio).
+
+\section{Equity of outbreak detection}\label{equity-of-outbreak-detection}
+
+Urban communities are more likely to be connected to sewer than rural communities. While this means that the urban vulnerable populations (e.g., poor, elderly) are covered by the surveillance system, the population density of the community means that the wastewater flow is highly diluted. The more people that contribute to a sewer system, the higher the flow, and the more dilution. This reduces the sensitivity of detection at the treatment plan. This means that urban communities may experience higher infection counts before an outbreak is detected in wastewater.
+
+On the other hand, rural communities with a public sewer system are more likely to detect an outbreak that is small in size and in the early stages because the population is smaller and therefore the ability to detect the pathogen is greater. There is less dilution in the smaller systems because fewer households and businesses contribute to the smaller treatment plant.
+
+\section{Example: Polio outbreak in NYS}\label{example-polio-outbreak-in-nys}
+
+Polio was identified in wastewater in New York State after diagnosis of a paralytic case in 2022 (\href{https://www.cdc.gov/mmwr/volumes/71/wr/mm7133e2.htm?s_cid\%3Dmm7133e2_w}{Link-Gelles et al.~2022}). Continuous monitoring for polio in wastewater after this diagnosis identified polio positives in several community wastewater samples in the nearby region (\href{https://www.cdc.gov/mmwr/volumes/71/wr/mm7144e2.htm}{Ryerson et al.~2022}). You can learn more about the polio outbreak in New York \href{https://www.health.ny.gov/diseases/communicable/polio/wastewater.htm}{here}.
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=37in]{Images/Figure 2} 
+
+}
+
+\caption{Polio positive detection rates for NYS during the 2022 polio outbreak (Larsen et al. 2024)}\label{fig:fig52}
+\end{figure}
+
+Using the detection of polio in wastewater and methods developed by Berchenko et al.~(2017), estimates for the sensitivity to detect a single poliovirus infection were produced for each wastewater sampling site in New York (Figure 3A).
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=51.03in]{Images/Figure 3} 
+
+}
+
+\caption{A) Sensitivity to detect a single poliovirus infection at one treatment plant. Sensitivity is highest in smaller treatment plants. B) confidence in freedom from poliovirus transmission after three consecutive non-detections. C) the 95\% confidence in the upper limit of infections. Even if a result is negative, we are confident that the total number of infections is less than 25 for most WWTPs.}\label{fig:fig53}
+\end{figure}
+
+\section{Considerations for designing wastewater surveillance systems for outbreak detection}\label{considerations-for-designing-wastewater-surveillance-systems-for-outbreak-detection}
+
+When designing your surveillance system, you need to consider many different components including:
+
+\begin{itemize}
+\item
+  Detection of an outbreak is determined by the stage of the outbreak, the size of the treatment plant, and the shedding characteristics of the pathogen
+\item
+  Outbreaks might be first detected in the wastewater of smaller treatment plants.
+\item
+  Non-detections in larger treatment plants does not mean wastewater surveillance is not beneficial
+\item
+  Large treatment plants benefit from upstream sampling plans and readiness
+\end{itemize}
+
+\section{Conclusion and training review}\label{conclusion-and-training-review}
+
+Wastewater surveillance is a powerful tool for public health. It can help is understand emerging pathogens and monitor endemic diseases. There are limitations to all surveillance systems, including wastewater surveillance. Based on our knowledge today, one limit is the sensitivity to detect a pathogen in wastewater. This will depend on the size of the outbreak, its shedding profile, and the sampling location characteristics. Wastewater surveillance is best used to monitor the growth or change in an outbreak and by including small treatment plants close to urban areas as ``sentinel surveillance sites'', there is potential to identify an outbreak before it becomes a major public health problem.
+
+\section{References}\label{references}
+
+Berchenko Y, Manor Y, Freedman LS, Kaliner E, Grotto I, Mendelson E, et al.~\href{https://doi.org/10.1126/scitranslmed.aaf6786}{Estimation of polio infection prevalence from environmental surveillance data}. Sci Transl Med. 2017; 9. \url{https://doi.org/10.1126/scitranslmed.aaf6786} PMID: 28356510
+
+Cameron AR, Meyer A, Faverjon C, Mackenzie C. \href{https://doi.org/10.1111/tbed.13598}{Quantification of the sensitivity of early detection surveillance}. Transboundary and Emerging Diseases. 2020 Nov;67(6):2532-43.
+
+Larsen DA, Hill D, Zhu Y, Alazawi M, Chatila D, Dunham C, Faruolo C, Ferro B, Godinez A, Hanson B, Insaf T. \href{https://doi.org/10.1371/journal.pgph.0002381}{Non-detection of emerging and re-emerging pathogens in wastewater surveillance to confirm absence of transmission risk: A case study of polio in New York}. PLOS global public health. 2024 Dec 31;4(12):e0002381.
+
+Link-Gelles R, Lutterloh E, Schnabel Ruppert P, et al.~\href{https://www.cdc.gov/mmwr/volumes/71/wr/mm7133e2.htm?s_cid\%3Dmm7133e2_w}{Public Health Response to a Case of Paralytic Poliomyelitis in an Unvaccinated Person and Detection of Poliovirus in Wastewater --- New York, June--August 2022}. MMWR Morb Mortal Wkly Rep 2022;71:1065-1068. DOI: \url{http://dx.doi.org/10.15585/mmwr.mm7133e2}
+
+Ryerson AB, Lang D, Alazawi MA, et al.~\href{https://www.cdc.gov/mmwr/volumes/71/wr/mm7144e2.htm}{Wastewater Testing and Detection of Poliovirus Type 2 Genetically Linked to Virus Isolated from a Paralytic Polio Case --- New York, March 9--October 11, 2022.} MMWR Morb Mortal Wkly Rep 2022;71:1418--1424. DOI: \url{http://dx.doi.org/10.15585/mmwr.mm7144e2}
+
+\chapter{Resources and links}\label{resources-and-links}
+
+\section{Training Videos}\label{training-videos}
+
+The videos are available on our public YouTube channel. Here is a link to our \href{https://www.youtube.com/@NYSWastewaterSurveillance/featured}{video library}.
+
+\begin{itemize}
+\item
+  \href{https://www.youtube.com/watch?v=XU9Ux8cMIJk}{Training Video 1: How to Map Sewersheds}
+\item
+  \href{https://www.youtube.com/watch?v=b5r3dtrzZNc}{Training Video 2: Aligning Census Data for WBE}
+\end{itemize}
+
+\section{Data}\label{data}
 
 All the data used in these tutorials are publicly available at the following links:
 
@@ -1605,11 +1656,10 @@ All the data used in these tutorials are publicly available at the following lin
 \item
   \href{https://github.com/nys-wwsn/ny-sewer-spatial-data}{NYS sewershed data} (GitHub data download). Access and download NYS sewershed data directly into your R session.
 \item
-  \href{https://www.arcgis.com/apps/mapviewer/index.html?url=https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer\&source=sd}{National parcel data viewer} / \href{https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer}{data access portal}. This is a data portal that lets you explore each state in the US and whether they have tax parcel data. Some links bring you to county or state websites and from there you can view and download the data.
+  \href{https://www.arcgis.com/apps/mapviewer/index.html?url=https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer&source=sd}{National parcel data viewer} / \href{https://services5.arcgis.com/fmKivMCp6fwbWbeE/ArcGIS/rest/services/2023_NSGIC_Parcel_Portal/FeatureServer}{data access portal}. This is a data portal that lets you explore each state in the US and whether they have tax parcel data. Some links bring you to county or state websites and from there you can view and download the data.
 \end{itemize}
 
-\hypertarget{other-resources}{%
-\section{Other Resources}\label{other-resources}}
+\section{Other Resources}\label{other-resources}
 
 \begin{itemize}
 \item
@@ -1619,7 +1669,5 @@ All the data used in these tutorials are publicly available at the following lin
 \item
   \href{https://r-spatial.org/}{R spatial tools}. R is an open-source program, and most mapping projects and analyses can be completed using the software.
 \end{itemize}
-
-  \bibliography{book.bib,packages.bib}
 
 \end{document}
